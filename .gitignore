@@ -1,0 +1,13 @@
+node_modules/
+.DS_Store
+update_design.js
+update_typography.js
+package-lock.json
+.gemini/
+.agents/
+.agent/
+_agents/
+_agent/
+brain/
+tmp/
+*.tmp
