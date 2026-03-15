@@ -1,838 +1,2683 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-body { 
-    background: #f5f5f7; 
-    min-height: 100vh; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    padding: 20px 16px 28px; 
-    gap: 14px; 
-    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; 
-    -webkit-font-smoothing: antialiased; 
-    letter-spacing: -0.01em; 
-    line-height: 1.5;
-}
-undefined
-undefined
-undefined
-.top-label { color: #86868b; font-size: 11px; letter-spacing: 0.5px; font-weight: 500; display: flex; align-items: center; gap: 12px; }
-.top-label::before, .top-label::after { content: ''; width: 40px; height: 1px; background: #d2d2d7; }
-.screen-info { text-align: center; min-height: 38px; }
-.si-t { color: #1d1d1f; font-size: 14px; font-weight: 600; }
-.si-d { color: #86868b; font-size: 12px; margin-top: 3px; }
-.phone { width: 358px; height: 710px; background: #ffffff; border-radius: 48px; box-shadow: 0 0 0 1px #d2d2d7, 0 20px 40px rgba(0,0,0,0.06), inset 0 0 0 4px #e5e5ea; position: relative; overflow: hidden; }
-.notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 32px; background: #1d1d1f; border-radius: 0 0 16px 16px; z-index: 20; box-shadow: inset 0 0 2px rgba(255,255,255,0.1); }
-.inner { background: #fbfbfd; border-radius: 44px; overflow: hidden; height: 100%; display: flex; flex-direction: column; margin: 4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04); }
-.sbar { height: 48px; min-height: 48px; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; z-index: 5; border-bottom: 0.5px solid rgba(0,0,0,0.05); }
-.sb-t { font-size: 13px; font-weight: 600; color: #1d1d1f; }
-.sb-app { font-size: 15px; font-weight: 700; color: #1d1d1f; flex: 1; text-align: center; }
-.sb-r { font-size: 11px; color: #1d1d1f; display: flex; gap: 4px; align-items: center; }
-.viewport { flex: 1; overflow: hidden; position: relative; }
-.track { display: flex; height: 100%; transition: transform .6s cubic-bezier(0.16, 1, 0.3, 1); }
-.s { min-width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; background: #f5f5f7; display: flex; flex-direction: column; }
-.s::-webkit-scrollbar { display: none; }
-.nav-row { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
-.dots { display: flex; gap: 6px; align-items: center; }
-.dot { height: 6px; width: 6px; border-radius: 3px; background: #d2d2d7; cursor: pointer; transition: all .3s; }
-.dot.act { background: #1d1d1f; width: 16px; }
-.nbtn { width: 44px; height: 44px; background: #ffffff; border: 1px solid #d2d2d7; border-radius: 22px; color: #1d1d1f; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: all 0.2s; }
-.nbtn:hover { background: #f5f5f7; }
-.key-hint { color: #86868b; font-size: 11px; text-align: center; }
+    body {
+      background: #f5f5f7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px 28px;
+      gap: 14px;
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.01em;
+      line-height: 1.5;
+    }
 
-/* 공통 */
-.sec-h { font-size: 24px; font-weight: 700; color: #1d1d1f; margin-bottom: 6px; letter-spacing: -0.5px; }
-.sec-s { font-size: 14px; color: #86868b; margin-bottom: 24px; line-height: 1.4; }
-.page-hd { background: rgba(255,255,255,0.85); backdrop-filter: blur(15px); padding: 18px 20px; border-bottom: 0.5px solid rgba(0,0,0,0.05); flex-shrink: 0; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 10;}
-.back-btn { width: 32px; height: 32px; border-radius: 16px; background: rgba(0,0,0,0.04); border: none; font-size: 16px; color: #0071e3; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.page-hd-info { }
-.page-hd-t { font-size: 17px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.2px; }
-.page-hd-s { font-size: 12px; color: #86868b; margin-top: 2px; }
-.body-pad { padding: 20px 20px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
-.card { background: #ffffff; border-radius: 18px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 0.5px solid rgba(0,0,0,0.02); }
-.card-t { font-size: 12px; font-weight: 600; color: #1d1d1f; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; }
-.btn-primary { padding: 16px; background: #0071e3; color: white; border: none; border-radius: 14px; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; display: flex; justify-content: center; align-items: center;}
-.btn-primary:active { background: #005bb5; }
-.btn-outline { padding: 15px; background: rgba(0,113,227,0.08); color: #0071e3; border: none; border-radius: 14px; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; transition: background 0.2s; }
-.btn-outline:active { background: rgba(0,113,227,0.15); }
-.tag { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; }
-.tag-g { background: #e3f5eb; color: #008a3d; }
-.tag-b { background: #e5f0fa; color: #0071e3; }
-.tag-r { background: #fae1e1; color: #e30000; }
-.tag-y { background: #fff5e0; color: #bf6a00; }
+    .top-label {
+      color: #86868b;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-/* S0 페르소나 */
-.s0p { padding: 32px 20px 24px; }
-.al { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.al-ic { width: 36px; height: 36px; background: #1d1d1f; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.al-nm { font-size: 24px; font-weight: 700; color: #1d1d1f; letter-spacing: -0.5px; }
-.al-nm em { color: #0071e3; font-style: normal; }
-.al-tag { font-size: 14px; color: #86868b; margin-bottom: 32px; }
-.pcard { background: #ffffff; border: 1.5px solid transparent; border-radius: 18px; padding: 18px; margin-bottom: 12px; cursor: pointer; display: flex; align-items: center; gap: 16px; transition: all .3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-.pcard:hover { transform: scale(1.02); box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
-.pcard.sel { border-color: #0071e3; background: #f2f8fc; }
-.pic { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
-.pv .pic { background: #fff5e0; }
-.pp .pic { background: #f0fdf4; }
-.pc .pic { background: #e5f0fa; }
-.pt { font-size: 16px; font-weight: 600; color: #1d1d1f; margin-bottom: 2px; }
-.pd { font-size: 13px; color: #86868b; }
-.anon-t { text-align: center; padding-top: 24px; font-size: 13px; color: #0071e3; cursor: pointer; font-weight: 500; }
+    .top-label::before,
+    .top-label::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: #d2d2d7;
+    }
 
-/* S1 도메인 */
-.s1p { padding: 24px 20px; }
-.dgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-.dcard { background: #ffffff; border: 1.5px solid transparent; border-radius: 18px; padding: 24px 12px; cursor: pointer; text-align: center; transition: all .3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-.dcard:hover { transform: scale(1.03); box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
-.dcard.sel { border-color: #0071e3; background: rgba(0,113,227,0.04); }
-.dc-e { font-size: 32px; margin-bottom: 10px; }
-.dc-l { font-size: 15px; font-weight: 600; color: #1d1d1f; }
-.dc-s { font-size: 12px; color: #86868b; margin-top: 4px; }
+    .screen-info {
+      text-align: center;
+      min-height: 38px;
+    }
 
-/* S2 챗 */
-.chd { background: rgba(255,255,255,0.85); backdrop-filter: blur(15px); padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 0.5px solid rgba(0,0,0,0.05); flex-shrink: 0; z-index: 10; position: sticky; top:0; }
-.chav { width: 40px; height: 40px; background: #0071e3; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; flex-shrink: 0; }
-.cht { font-size: 15px; font-weight: 600; color: #1d1d1f; }
-.chs { font-size: 12px; color: #86868b; }
-.pw { padding: 12px 20px 8px; background: #ffffff; flex-shrink: 0; border-bottom: 0.5px solid rgba(0,0,0,0.05); }
-.plb { font-size: 11px; color: #86868b; margin-bottom: 6px; font-weight: 500; }
-.ptr { height: 4px; background: #e5e5ea; border-radius: 2px; overflow: hidden; }
-.pfl { height: 100%; background: #0071e3; width: 0%; transition: width .8s cubic-bezier(0.16, 1, 0.3, 1); }
-.cb { padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; overflow-y: auto; background: #fbfbfd; }
-.cb::-webkit-scrollbar { display: none; }
-.msg { display: flex; flex-direction: column; opacity: 0; animation: fup .5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-@keyframes fup { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-.bub { padding: 12px 16px; font-size: 14px; line-height: 1.5; border-radius: 18px; letter-spacing: -0.2px; }
-.ai .bub { background: #e9e9eb; color: #1d1d1f; border-bottom-left-radius: 4px; align-self: flex-start; max-width: 85%; }
-.user .bub { background: #0071e3; color: white; border-bottom-right-radius: 4px; align-self: flex-end; max-width: 85%; }
-.tind { display: flex; align-items: center; gap: 4px; background: #e9e9eb; border-radius: 18px; border-bottom-left-radius: 4px; padding: 14px 18px; width: fit-content; opacity: 0; transition: opacity .25s; }
-.tind.on { opacity: 1; }
-.tind span { width: 6px; height: 6px; border-radius: 3px; background: #86868b; animation: tb 1.4s ease-in-out infinite; }
-.tind span:nth-child(2) { animation-delay: .2s; }
-.tind span:nth-child(3) { animation-delay: .4s; }
-@keyframes tb { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } }
-.ccta { display: none; margin: 0 20px 20px; padding: 16px; background: #0071e3; color: white; border: none; border-radius: 14px; font-size: 15px; font-weight: 600; cursor: pointer; animation: fup .5s cubic-bezier(0.16, 1, 0.3, 1); flex-shrink: 0; }
+    .si-t {
+      color: #1d1d1f;
+      font-size: 14px;
+      font-weight: 600;
+    }
 
-/* S3 결과 */
-.s3-scroll { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
-.s3-scroll::-webkit-scrollbar { display: none; }
-.rhd { background: #fbfbfd; padding: 24px 20px; border-bottom: 0.5px solid rgba(0,0,0,0.05); }
-.rlb { font-size: 11px; color: #86868b; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
-.rmn { font-size: 28px; font-weight: 700; color: #1d1d1f; margin-bottom: 16px; line-height: 1.2; letter-spacing: -0.5px; }
-.rchips { display: flex; gap: 8px; flex-wrap: wrap; }
-.rchip { background: #f5f5f7; color: #1d1d1f; padding: 6px 12px; border-radius: 16px; font-size: 12px; font-weight: 500; border: 0.5px solid rgba(0,0,0,0.05); }
-.rbody { padding: 20px 20px; display: flex; flex-direction: column; gap: 16px; }
-.rcard { background: #ffffff; border-radius: 18px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 0.5px solid rgba(0,0,0,0.02); }
-.rct { font-size: 13px; font-weight: 600; color: #1d1d1f; margin-bottom: 12px; }
-.sev-row { display: flex; align-items: center; gap: 12px; }
-.sev-bar { flex: 1; height: 10px; background: #e5e5ea; border-radius: 5px; overflow: hidden; }
-.sev-fl { height: 100%; width: 85%; background: #ff3b30; border-radius: 5px; }
-.sev-lbl { font-size: 15px; font-weight: 600; color: #ff3b30; white-space: nowrap; }
-.ev-list { display: flex; flex-direction: column; gap: 10px; }
-.evi { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #1d1d1f; line-height: 1.5; }
-.evd { width: 6px; height: 6px; border-radius: 3px; background: #0071e3; margin-top: 6px; flex-shrink: 0; }
-.cc { background: #f5f5f7; border-radius: 14px; padding: 14px; margin-bottom: 10px; }
-.cc:last-child { margin-bottom: 0; }
-.ccb { display: inline-flex; align-items: center; gap: 4px; background: #e3f5eb; color: #008a3d; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 12px; margin-bottom: 8px; }
-.cct { font-size: 14px; font-weight: 600; color: #1d1d1f; margin-bottom: 4px; }
-.ccd { font-size: 13px; color: #86868b; line-height: 1.5; }
-.ccr { font-size: 13px; font-weight: 600; color: #ff3b30; margin-top: 8px; }
-.qa-i { padding: 12px 0; border-bottom: 0.5px solid rgba(0,0,0,0.05); }
-.qa-i:last-child { border-bottom: none; padding-bottom: 0; }
-.qaq { font-size: 14px; font-weight: 600; color: #1d1d1f; margin-bottom: 6px; display: flex; gap: 6px; }
-.ql { color: #0071e3; }
-.qaa { font-size: 13px; color: #86868b; line-height: 1.5; display: flex; gap: 6px; }
-.al2 { color: #1d1d1f; font-weight: 600; flex-shrink: 0; }
-.parent-card { background: #ffffff; border: 1.5px solid #0071e3; border-radius: 18px; padding: 20px 16px; position: relative; overflow: hidden; box-shadow: 0 8px 30px rgba(0,113,227,0.1); }
-.s3-float { flex-shrink: 0; padding: 16px 20px 24px; background: rgba(255,255,255,0.85); backdrop-filter: blur(15px); border-top: 0.5px solid rgba(0,0,0,0.05); display: flex; gap: 12px; }
+    .si-d {
+      color: #86868b;
+      font-size: 12px;
+      margin-top: 3px;
+    }
 
-/* S4 대응 대시보드 */
-.dash-hd { background: #fbfbfd; padding: 24px 20px; border-bottom: 0.5px solid rgba(0,0,0,0.05); flex-shrink: 0; }
-.dash-hd-sub { font-size: 12px; color: #86868b; margin-bottom: 6px; }
-.dash-hd-t { font-size: 24px; font-weight: 700; margin-bottom: 20px; color: #1d1d1f; letter-spacing: -0.5px; }
-.tl-mini { display: flex; align-items: center; gap: 0; overflow-x: auto; padding-bottom: 4px;}
-.tl-mini::-webkit-scrollbar { display: none; }
-.tl-step { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 60px; }
-.tl-dot { width: 24px; height: 24px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; font-weight: 600;}
-.tl-dot.done { background: #1d1d1f; color: white; }
-.tl-dot.curr { background: #0071e3; color: white; box-shadow: 0 0 0 4px rgba(0,113,227,0.2); }
-.tl-dot.todo { background: #e5e5ea; color: #86868b; }
-.tl-lbl { font-size: 10px; color: #86868b; text-align: center; line-height: 1.3; }
-.tl-lbl.curr { color: #1d1d1f; font-weight: 600; }
-.tl-line { width: 20px; height: 2px; background: #e5e5ea; margin-bottom: 20px; flex-shrink: 0; }
-.tl-line.done { background: #1d1d1f; }
-.todo-list { display: flex; flex-direction: column; gap: 10px; }
-.todo-item { display: flex; align-items: center; gap: 14px; padding: 16px; background: #f5f5f7; border-radius: 14px; cursor: pointer; transition: background 0.2s; }
-.todo-item:hover { background: #e9e9eb; }
-.todo-check { width: 24px; height: 24px; border-radius: 12px; border: 1.5px solid #c7c7cc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; color: transparent; transition: all 0.2s; }
-.todo-check.done { background: #1d1d1f; border-color: #1d1d1f; color: white; }
-.todo-t { font-size: 15px; font-weight: 600; color: #1d1d1f; flex: 1; margin-bottom: 2px;}
-.todo-sub { font-size: 13px; color: #86868b; }
-.todo-arr { font-size: 16px; color: #c7c7cc; font-weight: 600;}
-.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.menu-card { background: #f5f5f7; border-radius: 16px; padding: 16px; cursor: pointer; transition: all .2s; }
-.menu-card:hover { background: #e9e9eb; transform: translateY(-2px); }
-.menu-ic { font-size: 28px; margin-bottom: 12px; }
-.menu-t { font-size: 14px; font-weight: 600; color: #1d1d1f; margin-bottom: 2px; }
-.menu-s { font-size: 12px; color: #86868b; }
-.menu-arr { font-size: 12px; color: #0071e3; margin-top: 10px; font-weight: 500; }
+    .phone {
+      width: 358px;
+      height: 710px;
+      background: #ffffff;
+      border-radius: 48px;
+      box-shadow: 0 0 0 1px #d2d2d7, 0 20px 40px rgba(0, 0, 0, 0.06), inset 0 0 0 4px #e5e5ea;
+      position: relative;
+      overflow: hidden;
+    }
 
-/* S5 증거 보관함 */
-.ev-upload-row { display: flex; gap: 10px; margin-bottom: 4px; }
-.ev-upload-btn { flex: 1; padding: 14px 8px; border-radius: 14px; background: rgba(0,113,227,0.08); font-size: 13px; font-weight: 600; color: #0071e3; cursor: pointer; text-align: center; border: none; transition: background 0.2s; }
-.ev-upload-btn:active { background: rgba(0,113,227,0.15); }
-.ev-cards { display: flex; flex-direction: column; gap: 10px; }
-.ev-card { background: #ffffff; border-radius: 16px; padding: 14px; display: flex; gap: 14px; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 0.5px solid rgba(0,0,0,0.02); }
-.ev-thumb { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
-.ev-info { flex: 1; }
-.ev-name { font-size: 14px; font-weight: 600; color: #1d1d1f; margin-bottom: 2px; }
-.ev-date { font-size: 12px; color: #86868b; }
-.ev-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
-.guide-box { background: #f5f5f7; border-radius: 16px; padding: 16px; }
-.guide-t { font-size: 13px; font-weight: 600; color: #1d1d1f; margin-bottom: 12px; }
-.guide-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #1d1d1f; margin-bottom: 10px; }
-.guide-item:last-child { margin-bottom: 0; }
-.gchk { width: 18px; height: 18px; border-radius: 9px; border: 1.5px solid #c7c7cc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: transparent; transition: all 0.2s;}
-.gchk.on { background: #0071e3; border-color: #0071e3; color: white; }
-.dl-row { display: flex; gap: 10px; }
-.dl-btn { flex: 1; padding: 14px; background: #ffffff; border: 1px solid #d2d2d7; border-radius: 14px; font-size: 14px; font-weight: 600; color: #1d1d1f; cursor: pointer; text-align: center; }
-.lock-row { display: flex; align-items: center; justify-content: space-between; padding: 16px; background: #ffffff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 0.5px solid rgba(0,0,0,0.02); }
-.lock-t { font-size: 15px; font-weight: 600; color: #1d1d1f; margin-bottom: 2px; }
-.lock-s { font-size: 13px; color: #86868b; }
-.toggle { width: 44px; height: 24px; background: #34c759; border-radius: 12px; position: relative; cursor: pointer; }
-.toggle::after { content: ''; position: absolute; width: 20px; height: 20px; background: white; border-radius: 10px; top: 2px; right: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: right .2s; }
+    .inner {
+      background: #fbfbfd;
+      border-radius: 44px;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      margin: 4px;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+    }
 
-/* S6 문서 초안 */
-.step-bar { display: flex; padding: 16px 20px; background: #fbfbfd; border-bottom: 0.5px solid rgba(0,0,0,0.05); }
-.step { flex: 1; text-align: center; font-size: 11px; color: #86868b; font-weight: 600; position: relative; letter-spacing: 0.5px; }
-.step::after { content: '›'; position: absolute; right: -4px; top: 50%; transform: translateY(-50%); color: #c7c7cc; font-size: 14px; }
-.step:last-child::after { display: none; }
-.step.done { color: #1d1d1f; }
-.step.curr { color: #0071e3; }
-.doc-types { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.doc-type { background: #ffffff; border: 1.5px solid transparent; border-radius: 16px; padding: 16px 12px; cursor: pointer; text-align: center; transition: all .2s; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-.doc-type.sel { border-color: #0071e3; background: rgba(0,113,227,0.04); box-shadow: 0 4px 20px rgba(0,113,227,0.1); }
-.doc-type-e { font-size: 28px; margin-bottom: 8px; }
-.doc-type-t { font-size: 14px; font-weight: 600; color: #1d1d1f; margin-bottom: 2px; }
-.doc-type-s { font-size: 11px; color: #86868b; }
-.pre-fill-card { background: #ffffff; border-radius: 18px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 0.5px solid rgba(0,0,0,0.02); }
-.pre-field { margin-bottom: 12px; }
-.pre-field:last-child { margin-bottom: 0; }
-.pre-label { font-size: 11px; font-weight: 600; color: #86868b; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
-.pre-val { font-size: 14px; color: #1d1d1f; background: #f5f5f7; border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; }
-.pre-auto { font-size: 10px; background: rgba(0,113,227,0.1); color: #0071e3; padding: 4px 8px; border-radius: 12px; font-weight: 500; }
-.disclaimer { background: #f5f5f7; border-radius: 14px; padding: 14px; display: flex; gap: 10px; align-items: flex-start; }
-.dis-t { font-size: 13px; color: #86868b; line-height: 1.5; }
-.preview-card { background: #ffffff; border-radius: 18px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 0.5px solid rgba(0,0,0,0.02); }
-.preview-t { font-size: 15px; font-weight: 600; color: #1d1d1f; margin-bottom: 12px; }
-.preview-body { font-size: 14px; color: #1d1d1f; line-height: 1.6; }
-.pdf-row { display: flex; gap: 10px; }
+    .sbar {
+      height: 48px;
+      min-height: 48px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 5;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+    }
 
-/* S7 타임라인 */
-.tl-full { display: flex; flex-direction: column; padding: 20px 20px; }
-.tl-item { display: flex; gap: 16px; cursor: pointer; position: relative; }
-.tl-left { display: flex; flex-direction: column; align-items: center; width: 28px; }
-.tl-circle { width: 28px; height: 28px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; flex-shrink: 0; background: #ffffff; border: 2px solid #e5e5ea; color: #86868b; z-index: 2; }
-.tl-circle.done { background: #1d1d1f; border-color: #1d1d1f; color: white; }
-.tl-circle.curr { background: white; border-color: #0071e3; color: #0071e3; }
-.tl-circle.todo { background: #f5f5f7; border-color: #e5e5ea; color: #c7c7cc; }
-.tl-vline { flex: 1; width: 2px; background: #e5e5ea; min-height: 20px; margin: 4px 0; }
-.tl-vline.done { background: #1d1d1f; }
-.tl-right { flex: 1; padding-bottom: 24px; }
-.tl-r-t { font-size: 16px; font-weight: 600; color: #1d1d1f; margin-bottom: 4px; }
-.tl-r-t.curr { color: #0071e3; }
-.tl-r-t.todo { color: #86868b; }
-.tl-r-d { font-size: 13px; color: #86868b; margin-bottom: 8px;}
-.tl-r-status { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 12px; }
-.st-done { background: rgba(0,0,0,0.05); color: #1d1d1f; }
-.st-curr { background: rgba(0,113,227,0.1); color: #0071e3; }
-.st-todo { background: transparent; color: #86868b; border: 1px solid #e5e5ea; }
-.tl-detail { background: #f5f5f7; border-radius: 14px; padding: 14px; margin-top: 12px; display: none; }
-.tl-detail.open { display: block; }
-.tl-detail-t { font-size: 11px; font-weight: 600; color: #86868b; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
-.tl-detail-li { font-size: 13px; color: #1d1d1f; margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.4; }
-.notif-row { display: flex; align-items: center; justify-content: space-between; background: #ffffff; border-radius: 16px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 0.5px solid rgba(0,0,0,0.02); margin: 0 20px 20px; }
-.notif-t { font-size: 15px; font-weight: 600; color: #1d1d1f; margin-bottom: 2px;}
-.notif-s { font-size: 13px; color: #86868b; }
-.toggle-off { width: 44px; height: 24px; background: #e5e5ea; border-radius: 12px; position: relative; cursor: pointer; transition: background .2s; }
-.toggle-off.on { background: #34c759; }
-.toggle-off::after { content: ''; position: absolute; width: 20px; height: 20px; background: white; border-radius: 10px; top: 2px; left: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: left .2s; }
-.toggle-off.on::after { left: 22px; }
+    .sb-t {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1d1d1f;
+    }
 
-/* S8 변호사 */
-.scard { background: #0071e3; border-radius: 18px; padding: 20px; color: white; box-shadow: 0 8px 30px rgba(0,113,227,0.15); }
-.sclb { font-size: 11px; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 600; }
-.sct { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
-.scchips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-.scchip { background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; }
-.scn { font-size: 12px; opacity: 0.9; }
-.agree-row { display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: #ffffff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 0.5px solid rgba(0,0,0,0.02); }
-.agree-chk { width: 20px; height: 20px; border-radius: 10px; background: #0071e3; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
-.agree-t { font-size: 13px; color: #86868b; line-height: 1.5; }
-.agree-t strong { color: #1d1d1f; font-weight: 600; font-size: 14px; display: block; margin-bottom: 4px; }
-.lcard { background: #ffffff; border-radius: 18px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 0.5px solid rgba(0,0,0,0.02); display: flex; gap: 14px; }
-.lcav { width: 56px; height: 56px; border-radius: 16px; background: #f5f5f7; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
-.lci { flex: 1; }
-.lcn { font-size: 16px; font-weight: 600; color: #1d1d1f; margin-bottom: 2px; }
-.lcs { font-size: 13px; color: #86868b; margin-bottom: 6px; }
-.lcbs { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
-.lcst { display: flex; gap: 12px; margin-bottom: 8px; }
-.lcsti { font-size: 12px; color: #86868b; }
-.lcsti strong { color: #1d1d1f; font-weight: 600; }
-.connect-row { display: flex; gap: 8px; margin-top: 12px; }
-.con-btn { flex: 1; padding: 10px 4px; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; border: none; background: #f5f5f7; color: #1d1d1f; transition: background 0.2s;}
-.con-btn:active { background: #e5e5ea; }
-.con-btn.main { background: #0071e3; color: white; }
-.con-btn.main:active { background: #005bb5; }
-.fw { background: #f5f5f7; border-radius: 16px; padding: 16px; display: flex; gap: 12px; align-items: flex-start; }
-.fwt { font-size: 13px; color: #86868b; line-height: 1.5; }
-.fwt strong { font-weight: 600; color: #1d1d1f; display: block; margin-bottom: 4px; }
-.gongdan { text-align: center; padding: 8px; font-size: 13px; color: #0071e3; font-weight: 500; cursor: pointer; }
+    .sb-app {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1d1d1f;
+      flex: 1;
+      text-align: center;
+    }
 
-</style>
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    .sb-r {
+      font-size: 11px;
+      color: #1d1d1f;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .viewport {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .track {
+      display: flex;
+      height: 100%;
+      transition: transform .6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .s {
+      min-width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: #f5f5f7;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .s::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .dot {
+      height: 6px;
+      width: 6px;
+      border-radius: 3px;
+      background: #d2d2d7;
+      cursor: pointer;
+      transition: all .3s;
+    }
+
+    .dot.act {
+      background: #1d1d1f;
+      width: 16px;
+    }
+
+    .nbtn {
+      width: 44px;
+      height: 44px;
+      background: #ffffff;
+      border: 1px solid #d2d2d7;
+      border-radius: 22px;
+      color: #1d1d1f;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s;
+    }
+
+    .nbtn:hover {
+      background: #f5f5f7;
+    }
+
+    .key-hint {
+      color: #86868b;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    /* 공통 */
+    .sec-h {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1d1d1f;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .sec-s {
+      font-size: 14px;
+      color: #86868b;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    .page-hd {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(15px);
+      padding: 18px 20px;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .back-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.04);
+      border: none;
+      font-size: 16px;
+      color: #0071e3;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .page-hd-t {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1d1d1f;
+      letter-spacing: -0.2px;
+    }
+
+    .page-hd-s {
+      font-size: 12px;
+      color: #86868b;
+      margin-top: 2px;
+    }
+
+    .body-pad {
+      padding: 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .card-t {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1d1d1f;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .btn-primary {
+      padding: 16px;
+      background: #0071e3;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-primary:active {
+      background: #005bb5;
+    }
+
+    .btn-outline {
+      padding: 15px;
+      background: rgba(0, 113, 227, 0.08);
+      color: #0071e3;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+    }
+
+    .btn-outline:active {
+      background: rgba(0, 113, 227, 0.15);
+    }
+
+    /* Floating CTA area */
+    .floating-cta {
+      position: sticky;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(245, 245, 247, 0) 0%, #f5f5f7 20%, #f5f5f7 100%);
+      padding: 24px 20px 20px;
+      z-index: 20;
+      flex-shrink: 0;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .tag-g {
+      background: #e3f5eb;
+      color: #008a3d;
+    }
+
+    .tag-b {
+      background: #e5f0fa;
+      color: #0071e3;
+    }
+
+    .tag-r {
+      background: #fae1e1;
+      color: #e30000;
+    }
+
+    .tag-y {
+      background: #fff5e0;
+      color: #bf6a00;
+    }
+
+    /* S0 페르소나 */
+    .s0p {
+      padding: 32px 20px 24px;
+    }
+
+    .al {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .al-ic {
+      width: 36px;
+      height: 36px;
+      background: #1d1d1f;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .al-nm {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1d1d1f;
+      letter-spacing: -0.5px;
+    }
+
+    .al-nm em {
+      color: #0071e3;
+      font-style: normal;
+    }
+
+    .al-tag {
+      font-size: 14px;
+      color: #86868b;
+      margin-bottom: 32px;
+    }
+
+    .pcard {
+      background: #ffffff;
+      border: 1.5px solid transparent;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .pcard:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .pcard.sel {
+      border-color: #0071e3;
+      background: #f2f8fc;
+    }
+
+    .pic {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .pv .pic {
+      background: #fff5e0;
+    }
+
+    .pp .pic {
+      background: #f0fdf4;
+    }
+
+    .pc .pic {
+      background: #e5f0fa;
+    }
+
+    .pi .pic {
+      background: #eef2ff;
+    }
+
+    .pt {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 2px;
+    }
+
+    .pd {
+      font-size: 13px;
+      color: #86868b;
+    }
+
+    .anon-t {
+      text-align: center;
+      padding-top: 24px;
+      font-size: 13px;
+      color: #0071e3;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    /* S1 도메인 */
+    .s1p {
+      padding: 24px 20px;
+    }
+
+    .dgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .dcard {
+      background: #ffffff;
+      border: 1.5px solid transparent;
+      border-radius: 18px;
+      padding: 24px 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all .3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .dcard:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .dcard.sel {
+      border-color: #0071e3;
+      background: rgba(0, 113, 227, 0.04);
+    }
+
+    .dc-e {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .dc-l {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1d1d1f;
+    }
+
+    .dc-s {
+      font-size: 12px;
+      color: #86868b;
+      margin-top: 4px;
+    }
+
+    /* S2 챗 */
+    .chd {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(15px);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+      z-index: 10;
+      position: sticky;
+      top: 0;
+    }
+
+    .chav {
+      width: 40px;
+      height: 40px;
+      background: #0071e3;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .cht {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1d1d1f;
+    }
+
+    .chs {
+      font-size: 12px;
+      color: #86868b;
+    }
+
+    .pw {
+      padding: 12px 20px 8px;
+      background: #ffffff;
+      flex-shrink: 0;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .plb {
+      font-size: 11px;
+      color: #86868b;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .ptr {
+      height: 4px;
+      background: #e5e5ea;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .pfl {
+      height: 100%;
+      background: #0071e3;
+      width: 0%;
+      transition: width .8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cb {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      overflow-y: auto;
+      background: #fbfbfd;
+    }
+
+    .cb::-webkit-scrollbar {
+      display: none;
+    }
+
+    .msg {
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      animation: fup .5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fup {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .bub {
+      padding: 12px 16px;
+      font-size: 14px;
+      line-height: 1.5;
+      border-radius: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .ai .bub {
+      background: #e9e9eb;
+      color: #1d1d1f;
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+      max-width: 85%;
+    }
+
+    .user .bub {
+      background: #0071e3;
+      color: white;
+      border-bottom-right-radius: 4px;
+      align-self: flex-end;
+      max-width: 85%;
+    }
+
+    .tind {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #e9e9eb;
+      border-radius: 18px;
+      border-bottom-left-radius: 4px;
+      padding: 14px 18px;
+      width: fit-content;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+
+    .tind.on {
+      opacity: 1;
+    }
+
+    .tind span {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: #86868b;
+      animation: tb 1.4s ease-in-out infinite;
+    }
+
+    .tind span:nth-child(2) {
+      animation-delay: .2s;
+    }
+
+    .tind span:nth-child(3) {
+      animation-delay: .4s;
+    }
+
+    @keyframes tb {
+
+      0%,
+      80%,
+      100% {
+        transform: translateY(0);
+      }
+
+      40% {
+        transform: translateY(-6px);
+      }
+    }
+
+    .ccta {
+      display: none;
+      margin: 0 20px 20px;
+      padding: 16px;
+      background: #0071e3;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      animation: fup .5s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+
+    /* S3 결과 */
+    .s3-scroll {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .s3-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .rhd {
+      background: #fbfbfd;
+      padding: 24px 20px;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .rlb {
+      font-size: 11px;
+      color: #86868b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .rmn {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1d1d1f;
+      margin-bottom: 16px;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    .rchips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .rchip {
+      background: #f5f5f7;
+      color: #1d1d1f;
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 0.5px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .rbody {
+      padding: 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .rcard {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .rct {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 12px;
+    }
+
+    .sev-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sev-bar {
+      flex: 1;
+      height: 10px;
+      background: #e5e5ea;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .sev-fl {
+      height: 100%;
+      width: 85%;
+      background: #ff3b30;
+      border-radius: 5px;
+    }
+
+    .sev-lbl {
+      font-size: 15px;
+      font-weight: 600;
+      color: #ff3b30;
+      white-space: nowrap;
+    }
+
+    .ev-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .evi {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #1d1d1f;
+      line-height: 1.5;
+    }
+
+    .evd {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: #0071e3;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .cc {
+      background: #f5f5f7;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .cc:last-child {
+      margin-bottom: 0;
+    }
+
+    .ccb {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #e3f5eb;
+      color: #008a3d;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    .cct {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 4px;
+    }
+
+    .ccd {
+      font-size: 13px;
+      color: #86868b;
+      line-height: 1.5;
+    }
+
+    .ccr {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ff3b30;
+      margin-top: 8px;
+    }
+
+    .qa-i {
+      padding: 12px 0;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .qa-i:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .qaq {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 6px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .ql {
+      color: #0071e3;
+    }
+
+    .qaa {
+      font-size: 13px;
+      color: #86868b;
+      line-height: 1.5;
+      display: flex;
+      gap: 6px;
+    }
+
+    .al2 {
+      color: #1d1d1f;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .parent-card {
+      background: #ffffff;
+      border: 1.5px solid #0071e3;
+      border-radius: 18px;
+      padding: 20px 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 113, 227, 0.1);
+    }
+
+    .s3-float {
+      flex-shrink: 0;
+      padding: 16px 20px 24px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(15px);
+      border-top: 0.5px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      gap: 12px;
+    }
+
+    /* S4 대응 대시보드 */
+    .dash-hd {
+      background: #fbfbfd;
+      padding: 24px 20px;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+    }
+
+    .dash-hd-sub {
+      font-size: 12px;
+      color: #86868b;
+      margin-bottom: 6px;
+    }
+
+    .dash-hd-t {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1d1d1f;
+      letter-spacing: -0.5px;
+    }
+
+    .tl-mini {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .tl-mini::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tl-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-width: 60px;
+    }
+
+    .tl-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+
+    .tl-dot.done {
+      background: #1d1d1f;
+      color: white;
+    }
+
+    .tl-dot.curr {
+      background: #0071e3;
+      color: white;
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2);
+    }
+
+    .tl-dot.todo {
+      background: #e5e5ea;
+      color: #86868b;
+    }
+
+    .tl-lbl {
+      font-size: 10px;
+      color: #86868b;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .tl-lbl.curr {
+      color: #1d1d1f;
+      font-weight: 600;
+    }
+
+    .tl-line {
+      width: 20px;
+      height: 2px;
+      background: #e5e5ea;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+
+    .tl-line.done {
+      background: #1d1d1f;
+    }
+
+    .todo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      background: #f5f5f7;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .todo-item:hover {
+      background: #e9e9eb;
+    }
+
+    .todo-check {
+      width: 24px;
+      height: 24px;
+      border-radius: 12px;
+      border: 1.5px solid #c7c7cc;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: transparent;
+      transition: all 0.2s;
+    }
+
+    .todo-check.done {
+      background: #1d1d1f;
+      border-color: #1d1d1f;
+      color: white;
+    }
+
+    .todo-t {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1d1d1f;
+      flex: 1;
+      margin-bottom: 2px;
+    }
+
+    .todo-sub {
+      font-size: 13px;
+      color: #86868b;
+    }
+
+    .todo-arr {
+      font-size: 16px;
+      color: #c7c7cc;
+      font-weight: 600;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .menu-card {
+      background: #f5f5f7;
+      border-radius: 16px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .menu-card:hover {
+      background: #e9e9eb;
+      transform: translateY(-2px);
+    }
+
+    .menu-ic {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .menu-t {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 2px;
+    }
+
+    .menu-s {
+      font-size: 12px;
+      color: #86868b;
+    }
+
+    .menu-arr {
+      font-size: 12px;
+      color: #0071e3;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    /* S5 증거 보관함 */
+    .ev-upload-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .ev-upload-btn {
+      flex: 1;
+      padding: 14px 8px;
+      border-radius: 14px;
+      background: rgba(0, 113, 227, 0.08);
+      font-size: 13px;
+      font-weight: 600;
+      color: #0071e3;
+      cursor: pointer;
+      text-align: center;
+      border: none;
+      transition: background 0.2s;
+    }
+
+    .ev-upload-btn:active {
+      background: rgba(0, 113, 227, 0.15);
+    }
+
+    .ev-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ev-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .ev-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .ev-info {
+      flex: 1;
+    }
+
+    .ev-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 2px;
+    }
+
+    .ev-date {
+      font-size: 12px;
+      color: #86868b;
+    }
+
+    .ev-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .guide-box {
+      background: #f5f5f7;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .guide-t {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 12px;
+    }
+
+    .guide-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #1d1d1f;
+      margin-bottom: 10px;
+    }
+
+    .guide-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .gchk {
+      width: 18px;
+      height: 18px;
+      border-radius: 9px;
+      border: 1.5px solid #c7c7cc;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: transparent;
+      transition: all 0.2s;
+    }
+
+    .gchk.on {
+      background: #0071e3;
+      border-color: #0071e3;
+      color: white;
+    }
+
+    .dl-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .dl-btn {
+      flex: 1;
+      padding: 14px;
+      background: #ffffff;
+      border: 1px solid #d2d2d7;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1d1d1f;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .lock-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .lock-t {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 2px;
+    }
+
+    .lock-s {
+      font-size: 13px;
+      color: #86868b;
+    }
+
+    .toggle {
+      width: 44px;
+      height: 24px;
+      background: #34c759;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 10px;
+      top: 2px;
+      right: 2px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: right .2s;
+    }
+
+    /* S6 문서 초안 */
+    .step-bar {
+      display: flex;
+      padding: 16px 20px;
+      background: #fbfbfd;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      color: #86868b;
+      font-weight: 600;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+
+    .step::after {
+      content: '›';
+      position: absolute;
+      right: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #c7c7cc;
+      font-size: 14px;
+    }
+
+    .step:last-child::after {
+      display: none;
+    }
+
+    .step.done {
+      color: #1d1d1f;
+    }
+
+    .step.curr {
+      color: #0071e3;
+    }
+
+    .doc-types {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .doc-type {
+      background: #ffffff;
+      border: 1.5px solid transparent;
+      border-radius: 16px;
+      padding: 16px 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all .2s;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .doc-type.sel {
+      border-color: #0071e3;
+      background: rgba(0, 113, 227, 0.04);
+      box-shadow: 0 4px 20px rgba(0, 113, 227, 0.1);
+    }
+
+    .doc-type-e {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .doc-type-t {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 2px;
+    }
+
+    .doc-type-s {
+      font-size: 11px;
+      color: #86868b;
+    }
+
+    .pre-fill-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .pre-field {
+      margin-bottom: 12px;
+    }
+
+    .pre-field:last-child {
+      margin-bottom: 0;
+    }
+
+    .pre-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #86868b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .pre-val {
+      font-size: 14px;
+      color: #1d1d1f;
+      background: #f5f5f7;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pre-auto {
+      font-size: 10px;
+      background: rgba(0, 113, 227, 0.1);
+      color: #0071e3;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .disclaimer {
+      background: #f5f5f7;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .dis-t {
+      font-size: 13px;
+      color: #86868b;
+      line-height: 1.5;
+    }
+
+    .preview-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .preview-t {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 12px;
+    }
+
+    .preview-body {
+      font-size: 14px;
+      color: #1d1d1f;
+      line-height: 1.6;
+    }
+
+    .pdf-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* S7 타임라인 */
+    .tl-full {
+      display: flex;
+      flex-direction: column;
+      padding: 20px 20px;
+    }
+
+    .tl-item {
+      display: flex;
+      gap: 16px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .tl-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 28px;
+    }
+
+    .tl-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+      background: #ffffff;
+      border: 2px solid #e5e5ea;
+      color: #86868b;
+      z-index: 2;
+    }
+
+    .tl-circle.done {
+      background: #1d1d1f;
+      border-color: #1d1d1f;
+      color: white;
+    }
+
+    .tl-circle.curr {
+      background: white;
+      border-color: #0071e3;
+      color: #0071e3;
+    }
+
+    .tl-circle.todo {
+      background: #f5f5f7;
+      border-color: #e5e5ea;
+      color: #c7c7cc;
+    }
+
+    .tl-vline {
+      flex: 1;
+      width: 2px;
+      background: #e5e5ea;
+      min-height: 20px;
+      margin: 4px 0;
+    }
+
+    .tl-vline.done {
+      background: #1d1d1f;
+    }
+
+    .tl-right {
+      flex: 1;
+      padding-bottom: 24px;
+    }
+
+    .tl-r-t {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 4px;
+    }
+
+    .tl-r-t.curr {
+      color: #0071e3;
+    }
+
+    .tl-r-t.todo {
+      color: #86868b;
+    }
+
+    .tl-r-d {
+      font-size: 13px;
+      color: #86868b;
+      margin-bottom: 8px;
+    }
+
+    .tl-r-status {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    .st-done {
+      background: rgba(0, 0, 0, 0.05);
+      color: #1d1d1f;
+    }
+
+    .st-curr {
+      background: rgba(0, 113, 227, 0.1);
+      color: #0071e3;
+    }
+
+    .st-todo {
+      background: transparent;
+      color: #86868b;
+      border: 1px solid #e5e5ea;
+    }
+
+    .tl-detail {
+      background: #f5f5f7;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .tl-detail.open {
+      display: block;
+    }
+
+    .tl-detail-t {
+      font-size: 11px;
+      font-weight: 600;
+      color: #86868b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .tl-detail-li {
+      font-size: 13px;
+      color: #1d1d1f;
+      margin-bottom: 6px;
+      display: flex;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .notif-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+      margin: 0 20px 20px;
+    }
+
+    .notif-t {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 2px;
+    }
+
+    .notif-s {
+      font-size: 13px;
+      color: #86868b;
+    }
+
+    .toggle-off {
+      width: 44px;
+      height: 24px;
+      background: #e5e5ea;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .toggle-off.on {
+      background: #34c759;
+    }
+
+    .toggle-off::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 10px;
+      top: 2px;
+      left: 2px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: left .2s;
+    }
+
+    .toggle-off.on::after {
+      left: 22px;
+    }
+
+    /* S8 변호사 */
+    .scard {
+      background: #0071e3;
+      border-radius: 18px;
+      padding: 20px;
+      color: white;
+      box-shadow: 0 8px 30px rgba(0, 113, 227, 0.15);
+    }
+
+    .sclb {
+      font-size: 11px;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .sct {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .scchips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .scchip {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .scn {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .agree-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .agree-chk {
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      background: #0071e3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .agree-t {
+      font-size: 13px;
+      color: #86868b;
+      line-height: 1.5;
+    }
+
+    .agree-t strong {
+      color: #1d1d1f;
+      font-weight: 600;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .lcard {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+      display: flex;
+      gap: 14px;
+    }
+
+    .lcav {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: #f5f5f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .lci {
+      flex: 1;
+    }
+
+    .lcn {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 2px;
+    }
+
+    .lcs {
+      font-size: 13px;
+      color: #86868b;
+      margin-bottom: 6px;
+    }
+
+    .lcbs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .lcst {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .lcsti {
+      font-size: 12px;
+      color: #86868b;
+    }
+
+    .lcsti strong {
+      color: #1d1d1f;
+      font-weight: 600;
+    }
+
+    .connect-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .con-btn {
+      flex: 1;
+      padding: 10px 4px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      border: none;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      transition: background 0.2s;
+    }
+
+    .con-btn:active {
+      background: #e5e5ea;
+    }
+
+    .con-btn.main {
+      background: #0071e3;
+      color: white;
+    }
+
+    .con-btn.main:active {
+      background: #005bb5;
+    }
+
+    .fw {
+      background: #f5f5f7;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .fwt {
+      font-size: 13px;
+      color: #86868b;
+      line-height: 1.5;
+    }
+
+    .fwt strong {
+      font-weight: 600;
+      color: #1d1d1f;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gongdan {
+      text-align: center;
+      padding: 8px;
+      font-size: 13px;
+      color: #0071e3;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* New Intro Styles */
+    .intro-content {
+      padding: 16px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      background: #fbfbfd;
+    }
+
+    .intro-badge {
+      align-self: flex-start;
+      background: #eef2ff;
+      color: #4f46e5;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .intro-h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1d1d1f;
+      margin-bottom: 8px;
+      line-height: 1.25;
+      letter-spacing: -1px;
+    }
+
+    .intro-p {
+      font-size: 15px;
+      color: #86868b;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .intro-features {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .i-feat {
+      background: white;
+      padding: 10px 14px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .i-feat-icon {
+      width: 40px;
+      height: 40px;
+      background: #fbfbfd;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+    }
+
+    .i-feat-t {
+      font-size: 14px;
+      font-weight: 500;
+      color: #48484a;
+      line-height: 1.4;
+    }
+
+    .intro-divider {
+      height: 1px;
+      background: #f2f2f7;
+      margin-bottom: 20px;
+    }
+
+    .intro-bottom-card {
+      background: #1e3a8a;
+      padding: 12px 14px;
+      border-radius: 18px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 24px rgba(30, 58, 138, 0.15);
+    }
+
+    .i-bc-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .i-bc-t {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .i-bc-s {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .intro-skip {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 14px;
+      color: #86868b;
+      cursor: pointer;
+      font-weight: 500;
+    }
+  </style>
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 </head>
+
 <body>
 
-<p class="top-label">Investor Demo · 법률 AI 플랫폼</p>
-<div class="screen-info" id="si">
-  <div class="si-t">① 온보딩</div>
-  <div class="si-d">페르소나 선택 — 첫 진입 분기</div>
-</div>
+  <p class="top-label">Investor Demo · 법률 AI 플랫폼</p>
+  <div class="screen-info" id="si">
+    <div class="si-t">① 도메인 선택</div>
+    <div class="si-d">학교폭력 / 가정폭력 / 이혼</div>
+  </div>
 
-<div class="phone">
-  <div class="notch"></div>
-  <div class="inner">
-    <div class="sbar">
-      <span class="sb-t">9:41</span>
-      <span class="sb-app">법AI</span>
-      <div class="sb-r"><span>●●●</span><span>🔋</span></div>
-    </div>
-    <div class="viewport">
-      <div class="track" id="track">
+  <div class="phone">
+    <div class="inner">
+      <div class="sbar">
+        <span class="sb-t">9:41</span>
+        <span class="sb-app">법AI</span>
+        <div class="sb-r"><span>●●●</span><span>🔋</span></div>
+      </div>
+      <div class="viewport">
+        <div class="track" id="track">
 
-        <!-- S0 페르소나 -->
-        <div class="s" id="s0">
-          <div class="s0p">
-            <div class="al"><div class="al-ic">⚖</div><div class="al-nm"><em>법</em>AI</div></div>
-            <p class="al-tag">막막한 법률 문제, 혼자 고민하지 마세요</p>
-            <div class="sec-h">누구를 위한 서비스인가요?</div>
-            <div class="sec-s">상황에 맞는 맞춤 안내를 드릴게요</div>
-            <div class="pcard pv" onclick="selP(this)">
-              <div class="pic">😟</div>
-              <div><div class="pt">피해자 / 피해자 부모</div><div class="pd">내가 (또는 우리 아이가) 피해를 입었어요</div></div>
+          <!-- Intro Screen -->
+          <div class="s" id="s-intro-new">
+            <div class="intro-content">
+              <div class="intro-badge">⚖️ 학교폭력 진단 테스트</div>
+              <div class="intro-titles">
+                <h1 class="intro-h1">확신이<br>들지 않나요?</h1>
+                <p class="intro-p">학폭이 맞는지, 어떻게 대응해야하는지<br>모르겠다면 진단 받아 보세요</p>
+              </div>
+              <div class="intro-features">
+                <div class="i-feat">
+                  <div class="i-feat-icon">📋</div>
+                  <div class="i-feat-t">학교폭력 해당 여부 및<br>유사 판례,관련 조항 맞춤 리포트 제공 </div>
+                </div>
+                <div class="i-feat">
+                  <div class="i-feat-icon">⏱️</div>
+                  <div class="i-feat-t">평균 8분 내 진단 완료</div>
+                </div>
+                <div class="i-feat">
+                  <div class="i-feat-icon">🔒</div>
+                  <div class="i-feat-t">익명으로 안전하게 진행</div>
+                </div>
+              </div>
+              <div class="intro-divider"></div>
+              <div class="intro-bottom-card">
+                <div class="i-bc-icon">⚖️</div>
+                <div class="i-bc-info">
+                  <div class="i-bc-t">실제 수임 사례 기반</div>
+                  <div class="i-bc-s">변호사 검토 완료 · 법률AI 자체 데이터</div>
+                </div>
+              </div>
+              <div class="intro-actions" style="margin-top: auto;">
+                <button class="btn-primary" onclick="go(1)">진단하기 →</button>
+                <div class="intro-skip" onclick="go(7)">건너뛰고 바로 상담하기</div>
+              </div>
             </div>
-            <div class="pcard pp" onclick="selP(this)">
-              <div class="pic">😰</div>
-              <div><div class="pt">가해자 (측) / 부모</div><div class="pd">우리 아이가 가해자로 지목됐어요</div></div>
-            </div>
-            <div class="pcard pc" onclick="selP(this)">
-              <div class="pic">👩‍💼</div>
-              <div><div class="pt">전문 상담사 / 기관</div><div class="pd">담당 케이스를 관리하고 싶어요</div></div>
-            </div>
-            <p class="anon-t" onclick="go(1)">익명으로 먼저 둘러보기 →</p>
           </div>
+
+
+
+
+          <!-- S2 챗 -->
+          <div class="s" id="s2">
+            <div class="chd">
+              <div class="chav">⚖</div>
+              <div>
+                <div class="cht">법AI 진단 챗</div>
+                <div class="chs">학교폭력 · 피해자 모드</div>
+              </div>
+            </div>
+            <div class="pw">
+              <div class="plb" id="plb">진단 진행 중...</div>
+              <div class="ptr">
+                <div class="pfl" id="pfl"></div>
+              </div>
+            </div>
+            <div class="cb" id="cb">
+              <div class="tind" id="tind"><span></span><span></span><span></span></div>
+            </div>
+            <button class="ccta" id="ccta" onclick="go(2)">📋 진단 결과 확인하기</button>
+          </div>
+
+          <!-- S3 결과 -->
+          <div class="s" id="s3">
+            <div class="s3-scroll">
+              <div class="rhd">
+                <div class="rlb">진단 결과</div>
+                <div class="rmn">학교폭력에<br>해당합니다</div>
+                <div class="rchips">
+                  <span class="rchip">🔴 심각도 높음</span>
+                  <span class="rchip">언어 폭력</span>
+                  <span class="rchip">사이버·반복</span>
+                </div>
+              </div>
+              <div class="rbody">
+                <div class="rcard">
+                  <div class="rct">심각도 분석</div>
+                  <div class="sev-row">
+                    <div class="sev-bar">
+                      <div class="sev-fl"></div>
+                    </div>
+                    <div class="sev-lbl">높음 85%</div>
+                  </div>
+                </div>
+                <div class="rcard">
+                  <div class="rct">AI 판단 근거</div>
+                  <div class="ev-list">
+                    <div class="evi">
+                      <div class="evd"></div><span>두 달 이상 지속된 반복적 욕설·비하 발언 확인</span>
+                    </div>
+                    <div class="evi">
+                      <div class="evd"></div><span>카카오톡 단톡방을 통한 온·오프라인 동시 언어 가해</span>
+                    </div>
+                    <div class="evi">
+                      <div class="evd"></div><span>캡처 이미지 20장 이상 — 반복성 입증 가능한 객관적 증거</span>
+                    </div>
+                    <div class="evi">
+                      <div class="evd"></div><span>학교폭력예방법 제2조 제1호 "언어폭력" 명백 해당</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="rcard">
+                  <div class="rct">유사 판례 (실제 수임 사건)</div>
+                  <div class="cc">
+                    <div class="ccb">✓ 한빛법률사무소 실제 수임</div>
+                    <div class="cct">중학교 단톡방 지속 욕설 — 피해자 측 수임</div>
+                    <div class="ccd">단톡방에서 두 달간 "찐따" 등 반복 욕설·비하. 캡처 증거 기반 학폭위 신청 후 인용.</div>
+                    <div class="ccr">→ 조치 5호(특별교육) + 6호(출석정지) 처분</div>
+                  </div>
+                  <div class="cc">
+                    <div class="ccb">✓ 정의법률그룹 실제 수임</div>
+                    <div class="cct">사이버 언어폭력 — "장난" 주장 반박 성공</div>
+                    <div class="ccd">가해 측 "친구끼리 한 말"이라 주장했으나 반복성·맥락으로 학폭 인정. 조치 상향 성공.</div>
+                    <div class="ccr">→ 최초 2호 → 이의신청 후 5호(특별교육) 상향</div>
+                  </div>
+                </div>
+                <div class="rcard">
+                  <div class="rct">변호사 Q&A (직접 답변)</div>
+                  <div class="qa-i">
+                    <div class="qaq"><span class="ql">Q.</span>카카오톡 캡처만으로 신고가 가능한가요?</div>
+                    <div class="qaa"><span class="al2">A.</span>네, 충분합니다. 날짜·발신자가 확인되는 캡처본은 언어폭력의 핵심 증거로 인정됩니다. 삭제 전 원본
+                      보존을 꼭 해두세요.</div>
+                  </div>
+                  <div class="qa-i">
+                    <div class="qaq"><span class="ql">Q.</span>"장난이었다"는 가해자 주장에 어떻게 대응하나요?</div>
+                    <div class="qaa"><span class="al2">A.</span>반복성과 내용의 맥락으로 충분히 반박 가능합니다. 피해자가 불쾌감을 느꼈다면 의도와 무관하게 학폭으로
+                      인정됩니다.</div>
+                  </div>
+                </div>
+                <div class="parent-card">
+                  <div style="position:absolute;right:-10px;bottom:-10px;font-size:64px;opacity:.08;line-height:1">💛
+                  </div>
+                  <div
+                    style="font-size:10px;font-weight:800;color:#D97706;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">
+                    부모님께 알려주세요</div>
+                  <div style="font-size:13px;font-weight:800;color:#1E293B;line-height:1.5;margin-bottom:6px">혼자 감당하지
+                    않아도 돼요 🤍</div>
+                  <div style="font-size:11px;color:#78716C;line-height:1.7;margin-bottom:13px">이 상황을 부모님께 말하는 게 두렵거나 무거울
+                    수 있어요.<br>하지만 숨길수록 혼자 버텨야 하는 무게만 커져요.<br><strong style="color:#92400E">부모님은 분명 당신
+                      편이에요.</strong><br>지금 이 결과를 함께 보여드리는 것,<br>그게 가장 용감한 첫걸음이에요.</div>
+                  <div style="display:flex;gap:8px">
+                    <button
+                      onclick="this.textContent='✅ 전송됨';this.style.background='#D1FAE5';this.style.color='#065F46';this.style.borderColor='#6EE7B7'"
+                      style="flex:1;padding:10px 0;background:white;border:1.5px solid #FCD34D;border-radius:10px;font-size:11px;font-weight:700;color:#B45309;cursor:pointer">📨
+                      카카오로 공유</button>
+                    <button
+                      onclick="this.textContent='✅ 저장됨';this.style.background='#D1FAE5';this.style.color='#065F46';this.style.borderColor='#6EE7B7'"
+                      style="flex:1;padding:10px 0;background:white;border:1.5px solid #FCD34D;border-radius:10px;font-size:11px;font-weight:700;color:#B45309;cursor:pointer">📄
+                      PDF 저장</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="s3-float">
+              <button onclick="go(1)"
+                style="flex:1;padding:12px 6px;background:white;border:1.5px solid #A78BFA;border-radius:12px;font-size:11px;font-weight:800;color:#7C3AED;cursor:pointer;line-height:1.35;box-shadow:0 2px 10px rgba(124,58,237,0.12)">💜
+                우리 아이<br>마음 케어하기</button>
+              <button onclick="go(3)"
+                style="flex:1.4;padding:12px 8px;background:linear-gradient(135deg,#1E40AF,#7C3AED);border:none;border-radius:12px;font-size:11px;font-weight:800;color:white;cursor:pointer;line-height:1.35;box-shadow:0 4px 14px rgba(30,64,175,0.35)">⚖️
+                법적<br>대응하기 →</button>
+            </div>
+          </div>
+
+          <!-- S4 대응 대시보드 -->
+          <div class="s" id="s4">
+            <div class="dash-hd">
+              <div class="dash-hd-sub">학교폭력 · 언어폭력 · 피해자</div>
+              <div class="dash-hd-t">대응 현황</div>
+              <div class="tl-mini">
+                <div class="tl-step">
+                  <div class="tl-dot done">✓</div>
+                  <div class="tl-lbl">진단<br>완료</div>
+                </div>
+                <div class="tl-line done"></div>
+                <div class="tl-step">
+                  <div class="tl-dot done">✓</div>
+                  <div class="tl-lbl">증거<br>수집</div>
+                </div>
+                <div class="tl-line done"></div>
+                <div class="tl-step">
+                  <div class="tl-dot curr">●</div>
+                  <div class="tl-lbl curr">학교<br>신고</div>
+                </div>
+                <div class="tl-line"></div>
+                <div class="tl-step">
+                  <div class="tl-dot todo">4</div>
+                  <div class="tl-lbl">학폭위<br>심의</div>
+                </div>
+                <div class="tl-line"></div>
+                <div class="tl-step">
+                  <div class="tl-dot todo">5</div>
+                  <div class="tl-lbl">결과<br>통보</div>
+                </div>
+              </div>
+            </div>
+            <div class="body-pad">
+              <div class="card">
+                <div class="card-t">오늘 할 일</div>
+                <div class="todo-list">
+                  <div class="todo-item">
+                    <div class="todo-check done">✓</div>
+                    <div>
+                      <div class="todo-t">증거 캡처 보관함에 저장</div>
+                      <div class="todo-sub">카톡 캡처 20장 업로드 완료</div>
+                    </div>
+                    <div class="todo-arr">›</div>
+                  </div>
+                  <div class="todo-item" onclick="go(5)">
+                    <div class="todo-check"></div>
+                    <div>
+                      <div class="todo-t">진술서 초안 작성하기</div>
+                      <div class="todo-sub">AI가 진단 내용 기반으로 자동 생성</div>
+                    </div>
+                    <div class="todo-arr">›</div>
+                  </div>
+                  <div class="todo-item" onclick="go(6)">
+                    <div class="todo-check"></div>
+                    <div>
+                      <div class="todo-t">학교 신고 절차 확인</div>
+                      <div class="todo-sub">담임 → 학폭위 신청 단계 안내</div>
+                    </div>
+                    <div class="todo-arr">›</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-t">빠른 이동</div>
+                <div class="menu-grid">
+                  <div class="menu-card" onclick="go(4)">
+                    <div class="menu-ic">📁</div>
+                    <div class="menu-t">증거 보관함</div>
+                    <div class="menu-s">20개 파일 저장됨</div>
+                    <div class="menu-arr">이동 →</div>
+                  </div>
+                  <div class="menu-card" onclick="go(5)">
+                    <div class="menu-ic">📝</div>
+                    <div class="menu-t">문서 초안</div>
+                    <div class="menu-s">진술서 작성 대기</div>
+                    <div class="menu-arr">이동 →</div>
+                  </div>
+                  <div class="menu-card" onclick="go(6)">
+                    <div class="menu-ic">📅</div>
+                    <div class="menu-t">절차 타임라인</div>
+                    <div class="menu-s">3/5단계 진행 중</div>
+                    <div class="menu-arr">이동 →</div>
+                  </div>
+                  <div class="menu-card" onclick="go(7)">
+                    <div class="menu-ic">👩‍⚖️</div>
+                    <div class="menu-t">변호사 연결</div>
+                    <div class="menu-s">무료 상담 가능</div>
+                    <div class="menu-arr">이동 →</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- S5 증거 보관함 -->
+          <div class="s" id="s5">
+            <div class="page-hd">
+              <button class="back-btn" onclick="go(3)">←</button>
+              <div class="page-hd-info">
+                <div class="page-hd-t">📁 증거 보관함</div>
+                <div class="page-hd-s">20개 파일 · 언어폭력 케이스</div>
+              </div>
+            </div>
+            <div class="body-pad">
+              <div class="ev-upload-row">
+                <button class="ev-upload-btn" onclick="this.textContent='✅ 추가됨'">📷 사진·파일</button>
+                <button class="ev-upload-btn" onclick="this.textContent='✅ 추가됨'">💬 문자·SNS</button>
+                <button class="ev-upload-btn" onclick="this.textContent='✅ 추가됨'">🎙 녹취</button>
+              </div>
+              <div class="ev-cards">
+                <div class="ev-card">
+                  <div class="ev-thumb" style="background:#FEE2E2">💬</div>
+                  <div class="ev-info">
+                    <div class="ev-name">카톡 단톡방 캡처 (1~10)</div>
+                    <div class="ev-date">2024.11.01 ~ 11.10</div>
+                    <div class="ev-tags"><span class="tag tag-r">문자·SNS</span><span class="tag tag-b">10장</span></div>
+                  </div>
+                </div>
+                <div class="ev-card">
+                  <div class="ev-thumb" style="background:#FEE2E2">💬</div>
+                  <div class="ev-info">
+                    <div class="ev-name">카톡 단톡방 캡처 (11~20)</div>
+                    <div class="ev-date">2024.11.11 ~ 11.25</div>
+                    <div class="ev-tags"><span class="tag tag-r">문자·SNS</span><span class="tag tag-b">10장</span></div>
+                  </div>
+                </div>
+                <div class="ev-card">
+                  <div class="ev-thumb" style="background:#F0FDF4">👁</div>
+                  <div class="ev-info">
+                    <div class="ev-name">목격자 진술 (같은 반 친구)</div>
+                    <div class="ev-date">2024.11.20 수집</div>
+                    <div class="ev-tags"><span class="tag tag-g">목격자 진술</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="guide-box">
+                <div class="guide-t">📌 이런 증거도 챙기세요</div>
+                <div class="guide-item">
+                  <div class="gchk on">✓</div>카카오톡 대화 캡처 (날짜 포함)
+                </div>
+                <div class="guide-item">
+                  <div class="gchk on">✓</div>목격자 친구 연락처
+                </div>
+                <div class="guide-item">
+                  <div class="gchk"></div>학교 상담일지 사본
+                </div>
+                <div class="guide-item">
+                  <div class="gchk"></div>심리 치료 기록 (있는 경우)
+                </div>
+              </div>
+              <div class="dl-row">
+                <button class="dl-btn" onclick="this.textContent='⬇ 다운로드 중...'">📦 전체 ZIP</button>
+                <button class="dl-btn" onclick="this.textContent='⬇ 선택 완료'">☑ 선택 다운로드</button>
+              </div>
+              <div class="lock-row">
+                <div>
+                  <div class="lock-t">🔒 생체인증 잠금</div>
+                  <div class="lock-s">보관함 접근 시 인증 필요</div>
+                </div>
+                <div class="toggle"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- S6 문서 초안 -->
+          <div class="s" id="s6" style="display: flex; flex-direction: column;">
+            <div style="flex: 1; overflow-y: auto;">
+              <div class="page-hd">
+                <button class="back-btn" onclick="go(4)">←</button>
+                <div class="page-hd-info">
+                  <div class="page-hd-t">📝 문서 초안 생성</div>
+                  <div class="page-hd-s">진단 데이터 자동 참조</div>
+                </div>
+              </div>
+              <div class="step-bar">
+                <div class="step done">① 유형선택</div>
+                <div class="step curr">② 내용확인</div>
+                <div class="step todo">③ 편집</div>
+                <div class="step todo">④ 저장</div>
+              </div>
+              <div class="body-pad">
+                <div class="card">
+                  <div class="card-t">문서 유형 선택</div>
+                  <div class="doc-types">
+                    <div class="doc-type sel">
+                      <div class="doc-type-e">📄</div>
+                      <div class="doc-type-t">진술서</div>
+                      <div class="doc-type-s">피해 사실 정리</div>
+                    </div>
+                    <div class="doc-type" onclick="this.classList.toggle('sel')">
+                      <div class="doc-type-e">🏫</div>
+                      <div class="doc-type-t">학교 신고서</div>
+                      <div class="doc-type-s">학폭위 신청</div>
+                    </div>
+                    <div class="doc-type" onclick="this.classList.toggle('sel')">
+                      <div class="doc-type-e">⚖️</div>
+                      <div class="doc-type-t">의견서</div>
+                      <div class="doc-type-s">법적 주장 정리</div>
+                    </div>
+                    <div class="doc-type" onclick="this.classList.toggle('sel')">
+                      <div class="doc-type-e">🤝</div>
+                      <div class="doc-type-t">합의서 초안</div>
+                      <div class="doc-type-s">합의 조건 정리</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="pre-fill-card">
+                  <div class="card-t">AI 자동 입력 내용 <span
+                      style="font-size:9px;background:#D1FAE5;color:#065F46;padding:1px 6px;border-radius:10px">진단 데이터
+                      참조</span></div>
+                  <div class="pre-field">
+                    <div class="pre-label">피해 유형</div>
+                    <div class="pre-val">언어폭력 (사이버 포함) <span class="pre-auto">자동입력</span></div>
+                  </div>
+                  <div class="pre-field">
+                    <div class="pre-label">피해 기간</div>
+                    <div class="pre-val">2024년 10월 ~ 현재 (약 2개월) <span class="pre-auto">자동입력</span></div>
+                  </div>
+                  <div class="pre-field">
+                    <div class="pre-label">증거 현황</div>
+                    <div class="pre-val">카카오톡 캡처 20장 <span class="pre-auto">자동입력</span></div>
+                  </div>
+                  <div class="pre-field">
+                    <div class="pre-label">요구 사항</div>
+                    <div class="pre-val" style="color:#94A3B8">직접 입력 →</div>
+                  </div>
+                </div>
+                <div class="preview-card">
+                  <div class="preview-t">📄 진술서 초안 미리보기</div>
+                  <div class="preview-body">피해자 ○○○(이하 '피해자')은 2024년 10월부터 현재까지 같은 반 학생들로부터 카카오톡 단체 대화방에서 반복적인 욕설 및 비하
+                    발언을
+                    당해 왔습니다. 해당 내용은 캡처 이미지 20장으로 확인되며...</div>
+                </div>
+                <div class="disclaimer">
+                  <span>⚠️</span>
+                  <div class="dis-t">이 초안은 법률 조언이 아닙니다. 제출 전 반드시 <strong>변호사 검토</strong>를 권장합니다.</div>
+                </div>
+              </div>
+            </div>
+            <div class="floating-cta">
+              <div class="pdf-row" style="margin-bottom:0">
+                <button class="btn-outline" onclick="this.textContent='✅ 저장됨'">📥 PDF 저장</button>
+                <button class="btn-primary" onclick="go(6)" style="flex:1">변호사 검토 받기 →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- S7 절차 타임라인 -->
+          <div class="s" id="s7">
+            <div class="page-hd">
+              <button class="back-btn" onclick="go(5)">←</button>
+              <div class="page-hd-info">
+                <div class="page-hd-t">📅 절차 타임라인</div>
+                <div class="page-hd-s">학교폭력 · 3/5단계 진행 중</div>
+              </div>
+            </div>
+            <div class="tl-full">
+              <div class="tl-item">
+                <div class="tl-left">
+                  <div class="tl-circle done">✓</div>
+                  <div class="tl-vline done"></div>
+                </div>
+                <div class="tl-right">
+                  <div class="tl-r-t">AI 진단 완료</div>
+                  <div class="tl-r-d">2024.11.25 완료 · 소요 10분</div>
+                  <span class="tl-r-status st-done">✓ 완료</span>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-left">
+                  <div class="tl-circle done">✓</div>
+                  <div class="tl-vline done"></div>
+                </div>
+                <div class="tl-right">
+                  <div class="tl-r-t">증거 수집</div>
+                  <div class="tl-r-d">2024.11.26 완료 · 카톡 캡처 20장</div>
+                  <span class="tl-r-status st-done">✓ 완료</span>
+                </div>
+              </div>
+              <div class="tl-item" onclick="toggleDetail('d3')">
+                <div class="tl-left">
+                  <div class="tl-circle curr">3</div>
+                  <div class="tl-vline"></div>
+                </div>
+                <div class="tl-right">
+                  <div class="tl-r-t curr">학교 신고 (담임→학폭위)</div>
+                  <div class="tl-r-d">예상 소요 1~3일</div>
+                  <span class="tl-r-status st-curr">● 진행 중</span>
+                  <div class="tl-detail" id="d3">
+                    <div class="tl-detail-t">해야 할 일</div>
+                    <div class="tl-detail-li">📌 담임교사에게 피해 사실 서면 전달</div>
+                    <div class="tl-detail-li">📌 학폭위 신청서 작성 (진술서 첨부)</div>
+                    <div class="tl-detail-li">📞 학교폭력 신고 117 (24시간)</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-item" onclick="toggleDetail('d4')">
+                <div class="tl-left">
+                  <div class="tl-circle todo">4</div>
+                  <div class="tl-vline"></div>
+                </div>
+                <div class="tl-right">
+                  <div class="tl-r-t todo">학폭위 심의</div>
+                  <div class="tl-r-d">신고 후 14일 이내 개최</div>
+                  <span class="tl-r-status st-todo">예정</span>
+                  <div class="tl-detail" id="d4">
+                    <div class="tl-detail-t">준비 서류</div>
+                    <div class="tl-detail-li">📄 진술서 · 증거 캡처본</div>
+                    <div class="tl-detail-li">📄 목격자 진술서</div>
+                    <div class="tl-detail-li">📄 심리 상담 기록 (있는 경우)</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-left">
+                  <div class="tl-circle todo">5</div>
+                </div>
+                <div class="tl-right">
+                  <div class="tl-r-t todo">조치 결과 통보</div>
+                  <div class="tl-r-d">심의 후 2주 내</div>
+                  <span class="tl-r-status st-todo">예정</span>
+                </div>
+              </div>
+            </div>
+            <div class="notif-row">
+              <div>
+                <div class="notif-t">🔔 단계 알림 받기</div>
+                <div class="notif-s">다음 단계 도래 시 푸시 알림</div>
+              </div>
+              <div class="toggle-off" id="notif-toggle" onclick="this.classList.toggle('on')"></div>
+            </div>
+          </div>
+
+          <!-- S8 변호사 연결 -->
+          <div class="s" id="s8">
+            <div class="page-hd">
+              <button class="back-btn" onclick="go(6)">←</button>
+              <div class="page-hd-info">
+                <div class="page-hd-t">👩‍⚖️ 변호사·법무사 연결</div>
+                <div class="page-hd-s">사건 요약이 자동으로 전달됩니다</div>
+              </div>
+            </div>
+            <div class="body-pad">
+              <div class="scard">
+                <div class="sclb">📋 내 사건 요약 (자동 생성)</div>
+                <div class="sct">학교폭력 · 언어 폭력 · 심각도 높음</div>
+                <div class="scchips">
+                  <span class="scchip">단톡방 반복 욕설</span>
+                  <span class="scchip">캡처 증거 20장</span>
+                  <span class="scchip">2개월 이상 지속</span>
+                </div>
+                <div class="scn">✓ 이 내용이 담당 변호사에게 바로 전달됩니다</div>
+              </div>
+              <div class="agree-row">
+                <div class="agree-chk">✓</div>
+                <div class="agree-t"><strong>내 사건 요약을 전문가에게 전달합니다</strong><br>선택 동의 — 상담 내용은 익명화 후 유사 사건 분석에 활용될 수 있습니다.
+                </div>
+              </div>
+              <div class="lcard">
+                <div class="lcav">👩‍⚖️</div>
+                <div class="lci">
+                  <div class="lcn">김지연 변호사</div>
+                  <div class="lcs">학교폭력·사이버폭력 전문 | 11년</div>
+                  <div class="lcbs"><span class="tag tag-g">✓ 제휴 파트너</span><span class="tag tag-b">수임 247건</span></div>
+                  <div class="lcst">
+                    <div class="lcsti">평점 <strong>4.9⭐</strong></div>
+                    <div class="lcsti">초상담 <strong>무료</strong></div>
+                  </div>
+                  <div style="font-size:9px;color:#64748B;margin-top:4px">이 사무소의 수임 데이터가 AI 진단에 활용됐습니다</div>
+                  <div class="connect-row">
+                    <button class="con-btn main">📞 전화</button>
+                    <button class="con-btn">💬 채팅</button>
+                    <button class="con-btn">📍 방문예약</button>
+                  </div>
+                </div>
+              </div>
+              <div class="lcard">
+                <div class="lcav">👨‍⚖️</div>
+                <div class="lci">
+                  <div class="lcn">박민준 변호사</div>
+                  <div class="lcs">청소년 법률·학폭위 대응 | 8년</div>
+                  <div class="lcbs"><span class="tag tag-g">✓ 제휴 파트너</span><span class="tag tag-b">수임 189건</span></div>
+                  <div class="lcst">
+                    <div class="lcsti">평점 <strong>4.8⭐</strong></div>
+                    <div class="lcsti">초상담 <strong>₩30,000</strong></div>
+                  </div>
+                  <div class="connect-row">
+                    <button class="con-btn main">📞 전화</button>
+                    <button class="con-btn">💬 채팅</button>
+                    <button class="con-btn">📍 방문예약</button>
+                  </div>
+                </div>
+              </div>
+              <div class="fw">
+                <span style="font-size:18px">🔄</span>
+                <div class="fwt"><strong>데이터 선순환 구조</strong><br>이 사무소의 실제 수임 데이터가 AI 진단에 활용됐습니다. 상담 후 익명화된 데이터는 더 정확한
+                  진단에 기여합니다.</div>
+              </div>
+              <div class="gongdan">무료 법률지원 대상자이신가요? 법률구조공단 안내 →</div>
+            </div>
+          </div>
+
         </div>
-
-        <!-- S1 도메인 -->
-        <div class="s" id="s1">
-          <div class="s1p">
-            <div class="sec-h">어떤 상황인가요?</div>
-            <div class="sec-s">해당하는 유형을 선택해 주세요 (복수 선택 가능)</div>
-            <div class="dgrid">
-              <div class="dcard" onclick="selD(this)"><div class="dc-e">🏫</div><div class="dc-l">학교폭력</div><div class="dc-s">따돌림·폭행·사이버</div></div>
-              <div class="dcard" onclick="selD(this)"><div class="dc-e">🏠</div><div class="dc-l">가정폭력</div><div class="dc-s">신체적·정서적 폭력</div></div>
-              <div class="dcard" onclick="selD(this)"><div class="dc-e">⚖️</div><div class="dc-l">이혼</div><div class="dc-s">협의·재판 이혼</div></div>
-              <div class="dcard" onclick="selD(this)"><div class="dc-e">🤔</div><div class="dc-l">모르겠어요</div><div class="dc-s">AI가 판단해 드려요</div></div>
-            </div>
-            <button class="btn-primary" style="margin-top:16px" onclick="go(2)">AI 진단 시작하기 →</button>
-          </div>
-        </div>
-
-        <!-- S2 챗 -->
-        <div class="s" id="s2">
-          <div class="chd">
-            <div class="chav">⚖</div>
-            <div><div class="cht">법AI 진단 챗</div><div class="chs">학교폭력 · 피해자 모드</div></div>
-          </div>
-          <div class="pw">
-            <div class="plb" id="plb">진단 진행 중...</div>
-            <div class="ptr"><div class="pfl" id="pfl"></div></div>
-          </div>
-          <div class="cb" id="cb">
-            <div class="tind" id="tind"><span></span><span></span><span></span></div>
-          </div>
-          <button class="ccta" id="ccta" onclick="go(3)">📋 진단 결과 확인하기</button>
-        </div>
-
-        <!-- S3 결과 -->
-        <div class="s" id="s3">
-          <div class="s3-scroll">
-            <div class="rhd">
-              <div class="rlb">진단 결과</div>
-              <div class="rmn">학교폭력에<br>해당합니다</div>
-              <div class="rchips">
-                <span class="rchip">🔴 심각도 높음</span>
-                <span class="rchip">언어 폭력</span>
-                <span class="rchip">사이버·반복</span>
-              </div>
-            </div>
-            <div class="rbody">
-              <div class="rcard">
-                <div class="rct">심각도 분석</div>
-                <div class="sev-row"><div class="sev-bar"><div class="sev-fl"></div></div><div class="sev-lbl">높음 85%</div></div>
-              </div>
-              <div class="rcard">
-                <div class="rct">AI 판단 근거</div>
-                <div class="ev-list">
-                  <div class="evi"><div class="evd"></div><span>두 달 이상 지속된 반복적 욕설·비하 발언 확인</span></div>
-                  <div class="evi"><div class="evd"></div><span>카카오톡 단톡방을 통한 온·오프라인 동시 언어 가해</span></div>
-                  <div class="evi"><div class="evd"></div><span>캡처 이미지 20장 이상 — 반복성 입증 가능한 객관적 증거</span></div>
-                  <div class="evi"><div class="evd"></div><span>학교폭력예방법 제2조 제1호 "언어폭력" 명백 해당</span></div>
-                </div>
-              </div>
-              <div class="rcard">
-                <div class="rct">유사 판례 (실제 수임 사건)</div>
-                <div class="cc">
-                  <div class="ccb">✓ 한빛법률사무소 실제 수임</div>
-                  <div class="cct">중학교 단톡방 지속 욕설 — 피해자 측 수임</div>
-                  <div class="ccd">단톡방에서 두 달간 "찐따" 등 반복 욕설·비하. 캡처 증거 기반 학폭위 신청 후 인용.</div>
-                  <div class="ccr">→ 조치 5호(특별교육) + 6호(출석정지) 처분</div>
-                </div>
-                <div class="cc">
-                  <div class="ccb">✓ 정의법률그룹 실제 수임</div>
-                  <div class="cct">사이버 언어폭력 — "장난" 주장 반박 성공</div>
-                  <div class="ccd">가해 측 "친구끼리 한 말"이라 주장했으나 반복성·맥락으로 학폭 인정. 조치 상향 성공.</div>
-                  <div class="ccr">→ 최초 2호 → 이의신청 후 5호(특별교육) 상향</div>
-                </div>
-              </div>
-              <div class="rcard">
-                <div class="rct">변호사 Q&A (직접 답변)</div>
-                <div class="qa-i">
-                  <div class="qaq"><span class="ql">Q.</span>카카오톡 캡처만으로 신고가 가능한가요?</div>
-                  <div class="qaa"><span class="al2">A.</span>네, 충분합니다. 날짜·발신자가 확인되는 캡처본은 언어폭력의 핵심 증거로 인정됩니다. 삭제 전 원본 보존을 꼭 해두세요.</div>
-                </div>
-                <div class="qa-i">
-                  <div class="qaq"><span class="ql">Q.</span>"장난이었다"는 가해자 주장에 어떻게 대응하나요?</div>
-                  <div class="qaa"><span class="al2">A.</span>반복성과 내용의 맥락으로 충분히 반박 가능합니다. 피해자가 불쾌감을 느꼈다면 의도와 무관하게 학폭으로 인정됩니다.</div>
-                </div>
-              </div>
-              <div class="parent-card">
-                <div style="position:absolute;right:-10px;bottom:-10px;font-size:64px;opacity:.08;line-height:1">💛</div>
-                <div style="font-size:10px;font-weight:800;color:#D97706;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">부모님께 알려주세요</div>
-                <div style="font-size:13px;font-weight:800;color:#1E293B;line-height:1.5;margin-bottom:6px">혼자 감당하지 않아도 돼요 🤍</div>
-                <div style="font-size:11px;color:#78716C;line-height:1.7;margin-bottom:13px">이 상황을 부모님께 말하는 게 두렵거나 무거울 수 있어요.<br>하지만 숨길수록 혼자 버텨야 하는 무게만 커져요.<br><strong style="color:#92400E">부모님은 분명 당신 편이에요.</strong><br>지금 이 결과를 함께 보여드리는 것,<br>그게 가장 용감한 첫걸음이에요.</div>
-                <div style="display:flex;gap:8px">
-                  <button onclick="this.textContent='✅ 전송됨';this.style.background='#D1FAE5';this.style.color='#065F46';this.style.borderColor='#6EE7B7'" style="flex:1;padding:10px 0;background:white;border:1.5px solid #FCD34D;border-radius:10px;font-size:11px;font-weight:700;color:#B45309;cursor:pointer">📨 카카오로 공유</button>
-                  <button onclick="this.textContent='✅ 저장됨';this.style.background='#D1FAE5';this.style.color='#065F46';this.style.borderColor='#6EE7B7'" style="flex:1;padding:10px 0;background:white;border:1.5px solid #FCD34D;border-radius:10px;font-size:11px;font-weight:700;color:#B45309;cursor:pointer">📄 PDF 저장</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="s3-float">
-            <button onclick="go(3)" style="flex:1;padding:12px 6px;background:white;border:1.5px solid #A78BFA;border-radius:12px;font-size:11px;font-weight:800;color:#7C3AED;cursor:pointer;line-height:1.35;box-shadow:0 2px 10px rgba(124,58,237,0.12)">💜 우리 아이<br>마음 케어하기</button>
-            <button onclick="go(4)" style="flex:1.4;padding:12px 8px;background:linear-gradient(135deg,#1E40AF,#7C3AED);border:none;border-radius:12px;font-size:11px;font-weight:800;color:white;cursor:pointer;line-height:1.35;box-shadow:0 4px 14px rgba(30,64,175,0.35)">⚖️ 법적<br>대응하기 →</button>
-          </div>
-        </div>
-
-        <!-- S4 대응 대시보드 -->
-        <div class="s" id="s4">
-          <div class="dash-hd">
-            <div class="dash-hd-sub">학교폭력 · 언어폭력 · 피해자</div>
-            <div class="dash-hd-t">대응 현황</div>
-            <div class="tl-mini">
-              <div class="tl-step"><div class="tl-dot done">✓</div><div class="tl-lbl">진단<br>완료</div></div>
-              <div class="tl-line done"></div>
-              <div class="tl-step"><div class="tl-dot done">✓</div><div class="tl-lbl">증거<br>수집</div></div>
-              <div class="tl-line done"></div>
-              <div class="tl-step"><div class="tl-dot curr">●</div><div class="tl-lbl curr">학교<br>신고</div></div>
-              <div class="tl-line"></div>
-              <div class="tl-step"><div class="tl-dot todo">4</div><div class="tl-lbl">학폭위<br>심의</div></div>
-              <div class="tl-line"></div>
-              <div class="tl-step"><div class="tl-dot todo">5</div><div class="tl-lbl">결과<br>통보</div></div>
-            </div>
-          </div>
-          <div class="body-pad">
-            <div class="card">
-              <div class="card-t">오늘 할 일</div>
-              <div class="todo-list">
-                <div class="todo-item">
-                  <div class="todo-check done">✓</div>
-                  <div><div class="todo-t">증거 캡처 보관함에 저장</div><div class="todo-sub">카톡 캡처 20장 업로드 완료</div></div>
-                  <div class="todo-arr">›</div>
-                </div>
-                <div class="todo-item" onclick="go(6)">
-                  <div class="todo-check"></div>
-                  <div><div class="todo-t">진술서 초안 작성하기</div><div class="todo-sub">AI가 진단 내용 기반으로 자동 생성</div></div>
-                  <div class="todo-arr">›</div>
-                </div>
-                <div class="todo-item" onclick="go(7)">
-                  <div class="todo-check"></div>
-                  <div><div class="todo-t">학교 신고 절차 확인</div><div class="todo-sub">담임 → 학폭위 신청 단계 안내</div></div>
-                  <div class="todo-arr">›</div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-t">빠른 이동</div>
-              <div class="menu-grid">
-                <div class="menu-card" onclick="go(5)">
-                  <div class="menu-ic">📁</div>
-                  <div class="menu-t">증거 보관함</div>
-                  <div class="menu-s">20개 파일 저장됨</div>
-                  <div class="menu-arr">이동 →</div>
-                </div>
-                <div class="menu-card" onclick="go(6)">
-                  <div class="menu-ic">📝</div>
-                  <div class="menu-t">문서 초안</div>
-                  <div class="menu-s">진술서 작성 대기</div>
-                  <div class="menu-arr">이동 →</div>
-                </div>
-                <div class="menu-card" onclick="go(7)">
-                  <div class="menu-ic">📅</div>
-                  <div class="menu-t">절차 타임라인</div>
-                  <div class="menu-s">3/5단계 진행 중</div>
-                  <div class="menu-arr">이동 →</div>
-                </div>
-                <div class="menu-card" onclick="go(8)">
-                  <div class="menu-ic">👩‍⚖️</div>
-                  <div class="menu-t">변호사 연결</div>
-                  <div class="menu-s">무료 상담 가능</div>
-                  <div class="menu-arr">이동 →</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- S5 증거 보관함 -->
-        <div class="s" id="s5">
-          <div class="page-hd">
-            <button class="back-btn" onclick="go(4)">←</button>
-            <div class="page-hd-info"><div class="page-hd-t">📁 증거 보관함</div><div class="page-hd-s">20개 파일 · 언어폭력 케이스</div></div>
-          </div>
-          <div class="body-pad">
-            <div class="ev-upload-row">
-              <button class="ev-upload-btn" onclick="this.textContent='✅ 추가됨'">📷 사진·파일</button>
-              <button class="ev-upload-btn" onclick="this.textContent='✅ 추가됨'">💬 문자·SNS</button>
-              <button class="ev-upload-btn" onclick="this.textContent='✅ 추가됨'">🎙 녹취</button>
-            </div>
-            <div class="ev-cards">
-              <div class="ev-card">
-                <div class="ev-thumb" style="background:#FEE2E2">💬</div>
-                <div class="ev-info">
-                  <div class="ev-name">카톡 단톡방 캡처 (1~10)</div>
-                  <div class="ev-date">2024.11.01 ~ 11.10</div>
-                  <div class="ev-tags"><span class="tag tag-r">문자·SNS</span><span class="tag tag-b">10장</span></div>
-                </div>
-              </div>
-              <div class="ev-card">
-                <div class="ev-thumb" style="background:#FEE2E2">💬</div>
-                <div class="ev-info">
-                  <div class="ev-name">카톡 단톡방 캡처 (11~20)</div>
-                  <div class="ev-date">2024.11.11 ~ 11.25</div>
-                  <div class="ev-tags"><span class="tag tag-r">문자·SNS</span><span class="tag tag-b">10장</span></div>
-                </div>
-              </div>
-              <div class="ev-card">
-                <div class="ev-thumb" style="background:#F0FDF4">👁</div>
-                <div class="ev-info">
-                  <div class="ev-name">목격자 진술 (같은 반 친구)</div>
-                  <div class="ev-date">2024.11.20 수집</div>
-                  <div class="ev-tags"><span class="tag tag-g">목격자 진술</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="guide-box">
-              <div class="guide-t">📌 이런 증거도 챙기세요</div>
-              <div class="guide-item"><div class="gchk on">✓</div>카카오톡 대화 캡처 (날짜 포함)</div>
-              <div class="guide-item"><div class="gchk on">✓</div>목격자 친구 연락처</div>
-              <div class="guide-item"><div class="gchk"></div>학교 상담일지 사본</div>
-              <div class="guide-item"><div class="gchk"></div>심리 치료 기록 (있는 경우)</div>
-            </div>
-            <div class="dl-row">
-              <button class="dl-btn" onclick="this.textContent='⬇ 다운로드 중...'">📦 전체 ZIP</button>
-              <button class="dl-btn" onclick="this.textContent='⬇ 선택 완료'">☑ 선택 다운로드</button>
-            </div>
-            <div class="lock-row">
-              <div><div class="lock-t">🔒 생체인증 잠금</div><div class="lock-s">보관함 접근 시 인증 필요</div></div>
-              <div class="toggle"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- S6 문서 초안 -->
-        <div class="s" id="s6">
-          <div class="page-hd">
-            <button class="back-btn" onclick="go(4)">←</button>
-            <div class="page-hd-info"><div class="page-hd-t">📝 문서 초안 생성</div><div class="page-hd-s">진단 데이터 자동 참조</div></div>
-          </div>
-          <div class="step-bar">
-            <div class="step done">① 유형선택</div>
-            <div class="step curr">② 내용확인</div>
-            <div class="step todo">③ 편집</div>
-            <div class="step todo">④ 저장</div>
-          </div>
-          <div class="body-pad">
-            <div class="card">
-              <div class="card-t">문서 유형 선택</div>
-              <div class="doc-types">
-                <div class="doc-type sel">
-                  <div class="doc-type-e">📄</div>
-                  <div class="doc-type-t">진술서</div>
-                  <div class="doc-type-s">피해 사실 정리</div>
-                </div>
-                <div class="doc-type" onclick="this.classList.toggle('sel')">
-                  <div class="doc-type-e">🏫</div>
-                  <div class="doc-type-t">학교 신고서</div>
-                  <div class="doc-type-s">학폭위 신청</div>
-                </div>
-                <div class="doc-type" onclick="this.classList.toggle('sel')">
-                  <div class="doc-type-e">⚖️</div>
-                  <div class="doc-type-t">의견서</div>
-                  <div class="doc-type-s">법적 주장 정리</div>
-                </div>
-                <div class="doc-type" onclick="this.classList.toggle('sel')">
-                  <div class="doc-type-e">🤝</div>
-                  <div class="doc-type-t">합의서 초안</div>
-                  <div class="doc-type-s">합의 조건 정리</div>
-                </div>
-              </div>
-            </div>
-            <div class="pre-fill-card">
-              <div class="card-t">AI 자동 입력 내용 <span style="font-size:9px;background:#D1FAE5;color:#065F46;padding:1px 6px;border-radius:10px">진단 데이터 참조</span></div>
-              <div class="pre-field">
-                <div class="pre-label">피해 유형</div>
-                <div class="pre-val">언어폭력 (사이버 포함) <span class="pre-auto">자동입력</span></div>
-              </div>
-              <div class="pre-field">
-                <div class="pre-label">피해 기간</div>
-                <div class="pre-val">2024년 10월 ~ 현재 (약 2개월) <span class="pre-auto">자동입력</span></div>
-              </div>
-              <div class="pre-field">
-                <div class="pre-label">증거 현황</div>
-                <div class="pre-val">카카오톡 캡처 20장 <span class="pre-auto">자동입력</span></div>
-              </div>
-              <div class="pre-field">
-                <div class="pre-label">요구 사항</div>
-                <div class="pre-val" style="color:#94A3B8">직접 입력 →</div>
-              </div>
-            </div>
-            <div class="preview-card">
-              <div class="preview-t">📄 진술서 초안 미리보기</div>
-              <div class="preview-body">피해자 ○○○(이하 '피해자')은 2024년 10월부터 현재까지 같은 반 학생들로부터 카카오톡 단체 대화방에서 반복적인 욕설 및 비하 발언을 당해 왔습니다. 해당 내용은 캡처 이미지 20장으로 확인되며...</div>
-            </div>
-            <div class="disclaimer">
-              <span>⚠️</span>
-              <div class="dis-t">이 초안은 법률 조언이 아닙니다. 제출 전 반드시 <strong>변호사 검토</strong>를 권장합니다.</div>
-            </div>
-            <div class="pdf-row">
-              <button class="btn-outline" onclick="this.textContent='✅ 저장됨'">📥 PDF 저장</button>
-              <button class="btn-primary" onclick="go(8)" style="flex:1">변호사 검토 받기 →</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- S7 절차 타임라인 -->
-        <div class="s" id="s7">
-          <div class="page-hd">
-            <button class="back-btn" onclick="go(4)">←</button>
-            <div class="page-hd-info"><div class="page-hd-t">📅 절차 타임라인</div><div class="page-hd-s">학교폭력 · 3/5단계 진행 중</div></div>
-          </div>
-          <div class="tl-full">
-            <div class="tl-item">
-              <div class="tl-left"><div class="tl-circle done">✓</div><div class="tl-vline done"></div></div>
-              <div class="tl-right">
-                <div class="tl-r-t">AI 진단 완료</div>
-                <div class="tl-r-d">2024.11.25 완료 · 소요 10분</div>
-                <span class="tl-r-status st-done">✓ 완료</span>
-              </div>
-            </div>
-            <div class="tl-item">
-              <div class="tl-left"><div class="tl-circle done">✓</div><div class="tl-vline done"></div></div>
-              <div class="tl-right">
-                <div class="tl-r-t">증거 수집</div>
-                <div class="tl-r-d">2024.11.26 완료 · 카톡 캡처 20장</div>
-                <span class="tl-r-status st-done">✓ 완료</span>
-              </div>
-            </div>
-            <div class="tl-item" onclick="toggleDetail('d3')">
-              <div class="tl-left"><div class="tl-circle curr">3</div><div class="tl-vline"></div></div>
-              <div class="tl-right">
-                <div class="tl-r-t curr">학교 신고 (담임→학폭위)</div>
-                <div class="tl-r-d">예상 소요 1~3일</div>
-                <span class="tl-r-status st-curr">● 진행 중</span>
-                <div class="tl-detail" id="d3">
-                  <div class="tl-detail-t">해야 할 일</div>
-                  <div class="tl-detail-li">📌 담임교사에게 피해 사실 서면 전달</div>
-                  <div class="tl-detail-li">📌 학폭위 신청서 작성 (진술서 첨부)</div>
-                  <div class="tl-detail-li">📞 학교폭력 신고 117 (24시간)</div>
-                </div>
-              </div>
-            </div>
-            <div class="tl-item" onclick="toggleDetail('d4')">
-              <div class="tl-left"><div class="tl-circle todo">4</div><div class="tl-vline"></div></div>
-              <div class="tl-right">
-                <div class="tl-r-t todo">학폭위 심의</div>
-                <div class="tl-r-d">신고 후 14일 이내 개최</div>
-                <span class="tl-r-status st-todo">예정</span>
-                <div class="tl-detail" id="d4">
-                  <div class="tl-detail-t">준비 서류</div>
-                  <div class="tl-detail-li">📄 진술서 · 증거 캡처본</div>
-                  <div class="tl-detail-li">📄 목격자 진술서</div>
-                  <div class="tl-detail-li">📄 심리 상담 기록 (있는 경우)</div>
-                </div>
-              </div>
-            </div>
-            <div class="tl-item">
-              <div class="tl-left"><div class="tl-circle todo">5</div></div>
-              <div class="tl-right">
-                <div class="tl-r-t todo">조치 결과 통보</div>
-                <div class="tl-r-d">심의 후 2주 내</div>
-                <span class="tl-r-status st-todo">예정</span>
-              </div>
-            </div>
-          </div>
-          <div class="notif-row">
-            <div><div class="notif-t">🔔 단계 알림 받기</div><div class="notif-s">다음 단계 도래 시 푸시 알림</div></div>
-            <div class="toggle-off" id="notif-toggle" onclick="this.classList.toggle('on')"></div>
-          </div>
-        </div>
-
-        <!-- S8 변호사 연결 -->
-        <div class="s" id="s8">
-          <div class="page-hd">
-            <button class="back-btn" onclick="go(4)">←</button>
-            <div class="page-hd-info"><div class="page-hd-t">👩‍⚖️ 변호사·법무사 연결</div><div class="page-hd-s">사건 요약이 자동으로 전달됩니다</div></div>
-          </div>
-          <div class="body-pad">
-            <div class="scard">
-              <div class="sclb">📋 내 사건 요약 (자동 생성)</div>
-              <div class="sct">학교폭력 · 언어 폭력 · 심각도 높음</div>
-              <div class="scchips">
-                <span class="scchip">단톡방 반복 욕설</span>
-                <span class="scchip">캡처 증거 20장</span>
-                <span class="scchip">2개월 이상 지속</span>
-              </div>
-              <div class="scn">✓ 이 내용이 담당 변호사에게 바로 전달됩니다</div>
-            </div>
-            <div class="agree-row">
-              <div class="agree-chk">✓</div>
-              <div class="agree-t"><strong>내 사건 요약을 전문가에게 전달합니다</strong><br>선택 동의 — 상담 내용은 익명화 후 유사 사건 분석에 활용될 수 있습니다.</div>
-            </div>
-            <div class="lcard">
-              <div class="lcav">👩‍⚖️</div>
-              <div class="lci">
-                <div class="lcn">김지연 변호사</div>
-                <div class="lcs">학교폭력·사이버폭력 전문 | 11년</div>
-                <div class="lcbs"><span class="tag tag-g">✓ 제휴 파트너</span><span class="tag tag-b">수임 247건</span></div>
-                <div class="lcst"><div class="lcsti">평점 <strong>4.9⭐</strong></div><div class="lcsti">초상담 <strong>무료</strong></div></div>
-                <div style="font-size:9px;color:#64748B;margin-top:4px">이 사무소의 수임 데이터가 AI 진단에 활용됐습니다</div>
-                <div class="connect-row">
-                  <button class="con-btn main">📞 전화</button>
-                  <button class="con-btn">💬 채팅</button>
-                  <button class="con-btn">📍 방문예약</button>
-                </div>
-              </div>
-            </div>
-            <div class="lcard">
-              <div class="lcav">👨‍⚖️</div>
-              <div class="lci">
-                <div class="lcn">박민준 변호사</div>
-                <div class="lcs">청소년 법률·학폭위 대응 | 8년</div>
-                <div class="lcbs"><span class="tag tag-g">✓ 제휴 파트너</span><span class="tag tag-b">수임 189건</span></div>
-                <div class="lcst"><div class="lcsti">평점 <strong>4.8⭐</strong></div><div class="lcsti">초상담 <strong>₩30,000</strong></div></div>
-                <div class="connect-row">
-                  <button class="con-btn main">📞 전화</button>
-                  <button class="con-btn">💬 채팅</button>
-                  <button class="con-btn">📍 방문예약</button>
-                </div>
-              </div>
-            </div>
-            <div class="fw">
-              <span style="font-size:18px">🔄</span>
-              <div class="fwt"><strong>데이터 선순환 구조</strong><br>이 사무소의 실제 수임 데이터가 AI 진단에 활용됐습니다. 상담 후 익명화된 데이터는 더 정확한 진단에 기여합니다.</div>
-            </div>
-            <div class="gongdan">무료 법률지원 대상자이신가요? 법률구조공단 안내 →</div>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
-</div>
 
-<div class="nav-row">
-  <button class="nbtn" onclick="prev()">‹</button>
-  <div class="dots" id="dots"></div>
-  <button class="nbtn" onclick="next()">›</button>
-</div>
-<p class="key-hint">← → 키보드로 이동 가능</p>
+  <div class="nav-row">
+    <button class="nbtn" onclick="prev()">‹</button>
+    <div class="dots" id="dots"></div>
+    <button class="nbtn" onclick="next()">›</button>
+  </div>
+  <p class="key-hint">← → 키보드로 이동 가능</p>
 
-<script>
-const LABELS=[
-  {t:'① 온보딩',d:'페르소나 선택 — 첫 진입 분기'},
-  {t:'② 도메인 선택',d:'학교폭력 / 가정폭력 / 이혼'},
-  {t:'③ AI 진단 챗 ⭐',d:'핵심 UX — AI 리딩 질문 방식'},
-  {t:'④ 진단 결과 리포트 ⭐',d:'실제 수임 데이터 차별점'},
-  {t:'⑤ 대응 대시보드',d:'케이스 진행 상태 한눈에'},
-  {t:'⑥ 증거 보관함',d:'증거 체계적 수집·관리'},
-  {t:'⑦ 문서 초안 생성 ⭐',d:'AI 자동 생성 — 진단 데이터 참조'},
-  {t:'⑧ 절차 타임라인',d:'단계별 법적 절차 안내'},
-  {t:'⑨ 변호사 연결 ⭐',d:'수익 모델 + 데이터 선순환'},
-];
-const MSGS=[
-  {r:'ai',t:'안녕하세요. 저는 법률 AI예요 😊\n어떤 일이 있으셨는지 편하게 말씀해 주세요.',p:15},
-  {r:'user',t:'아이가 학교에서 친구들한테 매일 욕을 먹고 있어요',p:30},
-  {r:'ai',t:'많이 속상하셨겠어요. 언제부터, 어떤 말을 들었는지\n조금 더 말씀해 주실 수 있나요?',p:45},
-  {r:'user',t:'두 달 전부터요. 카톡 단톡방에서도 "찐따" "꺼져" 이런 말을 매일 해요',p:60},
-  {r:'ai',t:'온라인까지 이어지는 언어 폭력이군요.\n아이가 그 메시지들을 캡처해 둔 게 있나요?',p:75},
-  {r:'user',t:'네, 카톡 화면 캡처가 20장 넘게 있어요',p:90},
-  {r:'ai',t:'반복성과 증거가 모두 확인됐어요.\n학교폭력 해당 여부를 판단했습니다. 결과를 확인해 드릴게요.',p:100},
-];
-let cur=0,chatStarted=false,mi=0;
-const dotsEl=document.getElementById('dots');
-for(let i=0;i<9;i++){
-  const d=document.createElement('div');
-  d.className='dot'+(i===0?' act':'');
-  d.onclick=()=>go(i);
-  dotsEl.appendChild(d);
-}
-function updateUI(){
-  document.getElementById('track').style.transform=`translateX(-${cur*100}%)`;
-  document.querySelectorAll('.dot').forEach((d,i)=>d.className='dot'+(i===cur?' act':''));
-  const l=LABELS[cur];
-  document.getElementById('si').innerHTML=`<div class="si-t">${l.t}</div><div class="si-d">${l.d}</div>`;
-}
-function go(n){if(n<0||n>=9)return;cur=n;updateUI();if(n===2&&!chatStarted){chatStarted=true;setTimeout(startChat,600);}}
-function next(){go(cur+1);}
-function prev(){go(cur-1);}
-function selP(el){document.querySelectorAll('.pcard').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');setTimeout(()=>go(1),380);}
-function selD(el){el.classList.toggle('sel');}
-function showTyping(on){document.getElementById('tind').className='tind'+(on?' on':'');}
-function addMsg(){
-  if(mi>=MSGS.length){showTyping(false);return;}
-  const m=MSGS[mi];showTyping(false);
-  const cb=document.getElementById('cb');
-  const div=document.createElement('div');div.className='msg '+m.r;
-  const bub=document.createElement('div');bub.className='bub';bub.innerHTML=m.t.replace(/\n/g,'<br>');
-  div.appendChild(bub);cb.insertBefore(div,document.getElementById('tind'));
-  document.getElementById('pfl').style.width=m.p+'%';
-  document.getElementById('plb').textContent=m.p<100?`진단 진행 중... ${m.p}%`:'✅ 진단 완료!';
-  const s2=document.getElementById('s2');s2.scrollTop=s2.scrollHeight;
-  mi++;
-  if(mi<MSGS.length){const delay=m.r==='ai'?2000:1300;setTimeout(()=>{showTyping(true);setTimeout(addMsg,900);},delay);}
-  else{setTimeout(()=>{showTyping(false);const btn=document.getElementById('ccta');btn.style.display='block';s2.scrollTop=s2.scrollHeight;},1200);}
-}
-function startChat(){showTyping(true);setTimeout(addMsg,800);}
-function toggleDetail(id){const el=document.getElementById(id);el.classList.toggle('open');}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev();});
-</script>
+  <script>
+    const LABELS = [
+      { t: '인트로', d: '서비스 시작' },
+      { t: '① AI 진단 챗 ⭐', d: '핵심 UX — AI 리딩 질문 방식' },
+      { t: '② 진단 결과 리포트 ⭐', d: '실제 수임 데이터 차별점' },
+      { t: '③ 대응 대시보드', d: '케이스 진행 상태 한눈에' },
+      { t: '④ 증거 보관함', d: '증거 체계적 수집·관리' },
+      { t: '⑤ 문서 초안 생성 ⭐', d: 'AI 자동 생성 — 진단 데이터 참조' },
+      { t: '⑥ 절차 타임라인', d: '단계별 법적 절차 안내' },
+      { t: '⑦ 변호사 연결 ⭐', d: '수익 모델 + 데이터 선순환' },
+    ];
+    const MSGS = [
+      { r: 'ai', t: '안녕하세요. 저는 법률 AI예요 😊\n어떤 일이 있으셨는지 편하게 말씀해 주세요.', p: 15 },
+      { r: 'user', t: '아이가 학교에서 친구들한테 매일 욕을 먹고 있어요', p: 30 },
+      { r: 'ai', t: '많이 속상하셨겠어요. 언제부터, 어떤 말을 들었는지\n조금 더 말씀해 주실 수 있나요?', p: 45 },
+      { r: 'user', t: '두 달 전부터요. 카톡 단톡방에서도 "찐따" "꺼져" 이런 말을 매일 해요', p: 60 },
+      { r: 'ai', t: '온라인까지 이어지는 언어 폭력이군요.\n아이가 그 메시지들을 캡처해 둔 게 있나요?', p: 75 },
+      { r: 'user', t: '네, 카톡 화면 캡처가 20장 넘게 있어요', p: 90 },
+      { r: 'ai', t: '반복성과 증거가 모두 확인됐어요.\n학교폭력 해당 여부를 판단했습니다. 결과를 확인해 드릴게요.', p: 100 },
+    ];
+    let cur = 0, chatStarted = false, mi = 0;
+    const TOTAL_SCREENS = 8;
+    const dotsEl = document.getElementById('dots');
+    for (let i = 0; i < TOTAL_SCREENS; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' act' : '');
+      d.onclick = () => go(i);
+      dotsEl.appendChild(d);
+    }
+    function updateUI() {
+      document.getElementById('track').style.transform = `translateX(-${cur * 100}%)`;
+      document.querySelectorAll('.dot').forEach((d, i) => d.className = 'dot' + (i === cur ? ' act' : ''));
+      const l = LABELS[cur];
+      document.getElementById('si').innerHTML = `<div class="si-t">${l.t}</div><div class="si-d">${l.d}</div>`;
+    }
+    function go(n) {
+      if (n < 0 || n >= TOTAL_SCREENS) return;
+      cur = n;
+      updateUI();
+      if (n === 1 && !chatStarted) { chatStarted = true; setTimeout(startChat, 600); }
+    }
+    function next() { go(cur + 1); }
+    function prev() { go(cur - 1); }
+    function selP(el) { document.querySelectorAll('.pcard').forEach(c => c.classList.remove('sel')); el.classList.add('sel'); }
+    function selD(el) { el.classList.toggle('sel'); }
+    function showTyping(on) { document.getElementById('tind').className = 'tind' + (on ? ' on' : ''); }
+    function addMsg() {
+      if (mi >= MSGS.length) { showTyping(false); return; }
+      const m = MSGS[mi]; showTyping(false);
+      const cb = document.getElementById('cb');
+      const div = document.createElement('div'); div.className = 'msg ' + m.r;
+      const bub = document.createElement('div'); bub.className = 'bub'; bub.innerHTML = m.t.replace(/\n/g, '<br>');
+      div.appendChild(bub); cb.insertBefore(div, document.getElementById('tind'));
+      document.getElementById('pfl').style.width = m.p + '%';
+      document.getElementById('plb').textContent = m.p < 100 ? `진단 진행 중... ${m.p}%` : '✅ 진단 완료!';
+      const s2 = document.getElementById('s2'); s2.scrollTop = s2.scrollHeight;
+      mi++;
+      if (mi < MSGS.length) { const delay = m.r === 'ai' ? 2000 : 1300; setTimeout(() => { showTyping(true); setTimeout(addMsg, 900); }, delay); }
+      else { setTimeout(() => { showTyping(false); const btn = document.getElementById('ccta'); btn.style.display = 'block'; s2.scrollTop = s2.scrollHeight; }, 1200); }
+    }
+    function startChat() { showTyping(true); setTimeout(addMsg, 800); }
+    function toggleDetail(id) { const el = document.getElementById(id); el.classList.toggle('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next(); if (e.key === 'ArrowLeft') prev(); });
+  </script>
 </body>
+
 </html>
