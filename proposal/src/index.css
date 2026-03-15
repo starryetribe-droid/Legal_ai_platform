@@ -1,0 +1,182 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+
+:root {
+  /* Apple Design Tokens */
+  --apple-bg: #ffffff;
+  --apple-secondary-bg: #f5f5f7;
+  --apple-text: #1d1d1f;
+  --apple-secondary-text: #86868b;
+  --apple-blue: #0066cc;
+  --apple-red: #ff3b30;
+  --apple-green: #34c759;
+  --apple-yellow: #ffcc00;
+
+  --font-pretendard: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --border-radius-large: 18px;
+  --border-radius-medium: 12px;
+
+  --spacing-unit: 8px;
+
+  --shadow-subtle: 0 4px 24px rgba(0, 0, 0, 0.04);
+  --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  overflow-y: auto;
+  background-color: var(--apple-bg);
+}
+
+body {
+  font-family: var(--font-pretendard);
+  background-color: var(--apple-bg);
+  color: var(--apple-text);
+  line-height: 1.47059;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.slides-wrapper {
+  height: 100vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.slide-section {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.slide-container {
+  width: 100%;
+  max-width: 1770px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 32px 60px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-footer {
+  margin-top: auto;
+  padding: 10px 60px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.slide-footer-dark {
+  background: rgba(10, 10, 11, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.slide-footer .caption-text {
+  font-size: 13px;
+  margin: 0;
+  color: var(--apple-secondary-text);
+  line-height: 1.2;
+}
+
+.slide-footer-dark .caption-text {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Typography Scale */
+.hero-title {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  margin-bottom: 4px;
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0em;
+}
+
+.card-title {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.21053;
+}
+
+.body-text {
+  font-size: 17px;
+  line-height: 1.47059;
+  color: var(--apple-secondary-text);
+}
+
+.caption-text {
+  font-size: 16px;
+  color: var(--apple-secondary-text);
+}
+
+/* Components */
+.apple-card {
+  background: var(--apple-secondary-bg);
+  border-radius: var(--border-radius-large);
+  padding: 24px;
+  box-shadow: var(--shadow-subtle);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.apple-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 6px 0;
+}
+
+.trend-up {
+  color: var(--apple-red);
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.trend-down {
+  color: var(--apple-blue);
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
