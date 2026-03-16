@@ -4,7 +4,7 @@
   "description": "Investor Demo",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cd proposal && npm install && npm run build && cd .. && mkdir -p dist/proposal && cp -r proposal/dist/* dist/proposal/"
+    "build": "vite build && cd proposal && npm install && npm run build && cd .. && mkdir -p dist/proposal && cp -a proposal/dist/. dist/proposal/"
   },
   "devDependencies": {
     "vite": "^5.0.0"
