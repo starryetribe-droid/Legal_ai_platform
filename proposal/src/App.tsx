@@ -23,6 +23,7 @@ const slides = [
 
 const App: React.FC = () => {
   useEffect(() => {
+    console.log('Proposal App Initialized');
     // Prevent default pinch-zoom or other gestures if needed
     const handleWheel = (e: WheelEvent) => {
       if (e.ctrlKey) e.preventDefault();
