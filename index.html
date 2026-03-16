@@ -1889,6 +1889,111 @@
       cursor: pointer;
     }
 
+    /* 확장 로드맵 */
+    .rm-sec {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .rm-lbl {
+      font-size: 11px;
+      color: #86868b;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .rm-tit {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1d1d1f;
+      line-height: 1.35;
+      letter-spacing: -0.5px;
+    }
+    .rm-box {
+      border: 1px dashed #d2d2d7;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 18px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+    .rm-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .rm-ph {
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .rm-ph.act {
+      color: #0071e3;
+    }
+    .rm-ph.inact {
+      color: #86868b;
+    }
+    .rm-item {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 16px 4px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    .rm-item.inact {
+      background: rgba(255, 255, 255, 0.6);
+      border: 0.5px dashed rgba(0, 0, 0, 0.05);
+      box-shadow: none;
+    }
+    .rm-i-t {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1d1d1f;
+      margin-bottom: 4px;
+      word-break: keep-all;
+    }
+    .rm-i-s {
+      font-size: 11px;
+      color: #86868b;
+      word-break: keep-all;
+      line-height: 1.3;
+    }
+    .rm-desc {
+      background: #fbfbfd;
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 0.5px solid rgba(0, 0, 0, 0.02);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    }
+    .rm-d-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .rm-d-ic {
+      font-size: 14px;
+      margin-top: -1px;
+    }
+    .rm-d-t {
+      font-size: 13px;
+      color: #48484a;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
     /* New Intro Styles */
     .intro-content {
       padding: 16px 20px 24px;
@@ -2598,6 +2703,45 @@
                 <div class="fwt"><strong>데이터 선순환 구조</strong><br>이 사무소의 실제 수임 데이터가 AI 진단에 활용됐습니다. 상담 후 익명화된 데이터는 더 정확한
                   진단에 기여합니다.</div>
               </div>
+
+              <div class="rm-sec">
+                <div class="rm-lbl">SERVICE EXPANSION</div>
+                <div class="rm-tit">하나의 사례기반 엔진에서<br>버티컬 확장하는 법률 AI 플랫폼</div>
+                <div class="rm-box">
+                  <div class="rm-col">
+                    <div class="rm-ph act">Phase 1</div>
+                    <div class="rm-item">
+                      <div class="rm-i-t">학교폭력</div>
+                      <div class="rm-i-s">학폭 119</div>
+                    </div>
+                  </div>
+                  <div class="rm-col">
+                    <div class="rm-ph inact">Phase 2</div>
+                    <div class="rm-item inact">
+                      <div class="rm-i-t">가정폭력</div>
+                      <div class="rm-i-s">가폭 SOS</div>
+                    </div>
+                  </div>
+                  <div class="rm-col">
+                    <div class="rm-ph inact">Phase 3</div>
+                    <div class="rm-item inact">
+                      <div class="rm-i-t">이혼</div>
+                      <div class="rm-i-s">이혼 AI 파트너</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="rm-desc">
+                  <div class="rm-d-row">
+                    <div class="rm-d-ic">💡</div>
+                    <div class="rm-d-t">하나의 사례기반 RAG 엔진 위에서 버티컬 확장</div>
+                  </div>
+                  <div class="rm-d-row">
+                    <div class="rm-d-ic">🤝</div>
+                    <div class="rm-d-t">LAWL 변호사 직접 연계 모델은 동일</div>
+                  </div>
+                </div>
+              </div>
+
               <div class="gongdan">무료 법률지원 대상자이신가요? 법률구조공단 안내 →</div>
             </div>
           </div>
