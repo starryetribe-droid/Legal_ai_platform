@@ -1,32 +1,34 @@
 import PersonaCard from './PersonaCard';
-import InsightBanner from './InsightBanner';
 
 const PersonaAnalysisSlide: React.FC = () => {
     return (
         <section className="slide-section">
             <div className="slide-container">
-                {/* Top Badge */}
-                <div style={{
-                    backgroundColor: '#1d1d1f',
-                    color: 'white',
-                    padding: '4px 12px',
-                    borderRadius: '20px',
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    width: 'fit-content',
-                    marginBottom: '12px',
-                    letterSpacing: '0.05em'
-                }}>
-                    Target Analysis
-                </div>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div>
+                        {/* Top Badge */}
+                        <div style={{
+                            backgroundColor: '#1d1d1f',
+                            color: 'white',
+                            padding: '4px 12px',
+                            borderRadius: '20px',
+                            fontSize: '16px',
+                            fontWeight: 600,
+                            textTransform: 'uppercase',
+                            width: 'fit-content',
+                            marginBottom: '18px',
+                            letterSpacing: '0.05em'
+                        }}>
+                            Target Analysis
+                        </div>
 
-                <h1 className="hero-title" style={{ fontSize: '32px', marginBottom: '2px' }}>5개 페르소나, 모두 같은 순간에 무너진다</h1>
-                <h2 style={{ fontSize: '22px', fontWeight: 600, color: 'var(--apple-secondary-text)', marginBottom: '16px' }}>— 학폭위 D-21, 아무도 답을 모를 때</h2>
+                        <h1 className="hero-title" style={{ fontSize: '32px', marginBottom: '12px' }}>5개 페르소나, 모두 같은 순간에 무너진다</h1>
+                        <h2 style={{ fontSize: '18px', fontWeight: 500, color: 'var(--apple-secondary-text)', marginBottom: '50px' }}>— 학폭위 D-21, 아무도 답을 모를 때</h2>
+                    </div>
 
-                {/* Persona Profiles with Grouping and Flow */}
-                <div style={{ display: 'flex', gap: '10px', marginBottom: '12px', flex: 1, alignItems: 'stretch' }}>
-                    {/* Primary Group */}
+                    {/* Persona Profiles with Grouping and Flow - wrapped to center vertically */}
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'stretch' }}>
+                        {/* Primary Group */}
                     <div style={{
                         flex: 2,
                         display: 'flex',
@@ -51,7 +53,7 @@ const PersonaAnalysisSlide: React.FC = () => {
                             margin: '-20px auto 0 auto',
                             border: '1.5px solid #0066cc40'
                         }}>
-                            PRIMARY
+                            <span style={{ opacity: 0.7, marginRight: '4px' }}>01</span> PRIMARY
                         </div>
                         <div style={{ display: 'flex', gap: '8px', flex: 1 }}>
                             <PersonaCard
@@ -63,7 +65,7 @@ const PersonaAnalysisSlide: React.FC = () => {
                                 painPoints={["4호 이상 징계 시 2~4년 생기부 기재 공포", "정보 과부하 · 의견서 작성 막막", "변호사 수임료 200~500만 원 부담"]}
                                 needs={["1~3호 처분 확보", "맞춤 의견서 초안", "처분 예측 확률"]}
                             />
-                            <div style={{ display: 'flex', alignItems: 'center', color: '#0066cc40', fontSize: '18px', fontWeight: 900 }}>&gt;</div>
+                            <div style={{ display: 'flex', alignItems: 'center', color: '#0066cc', fontSize: '28px', fontWeight: 800 }}>&gt;</div>
                             <PersonaCard
                                 type="B"
                                 label="피해학생 부모"
@@ -76,7 +78,7 @@ const PersonaAnalysisSlide: React.FC = () => {
                         </div>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', color: '#d2d2d7', fontSize: '20px', fontWeight: 900 }}>&gt;</div>
+                    <div style={{ display: 'flex', alignItems: 'center', color: '#0066cc', fontSize: '28px', fontWeight: 800, margin: '0 4px' }}>&gt;</div>
 
                     {/* Secondary Group */}
                     <div style={{
@@ -103,7 +105,7 @@ const PersonaAnalysisSlide: React.FC = () => {
                             margin: '-20px auto 0 auto',
                             border: '1.5px solid #ff3b3040'
                         }}>
-                            SECONDARY
+                            <span style={{ opacity: 0.7, marginRight: '4px' }}>02</span> SECONDARY
                         </div>
                         <div style={{ display: 'flex', gap: '8px', flex: 1 }}>
                             <PersonaCard
@@ -115,7 +117,7 @@ const PersonaAnalysisSlide: React.FC = () => {
                                 painPoints={["행동 합리화 · 죄의식 부족 → 체감 후 공포", "진술서·사과문 작성 방법 전무", '"솔직히 말하면 더 불리할까" 딜레마']}
                                 needs={["즉각 처분 예측", "학생 눈높이 진술 가이드", "심의 Q&A 시뮬레이션"]}
                             />
-                            <div style={{ display: 'flex', alignItems: 'center', color: '#ff3b3040', fontSize: '18px', fontWeight: 900 }}>&gt;</div>
+                            <div style={{ display: 'flex', alignItems: 'center', color: '#ff3b30', fontSize: '28px', fontWeight: 800 }}>&gt;</div>
                             <PersonaCard
                                 type="b"
                                 label="피해학생"
@@ -128,7 +130,7 @@ const PersonaAnalysisSlide: React.FC = () => {
                         </div>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', color: '#d2d2d7', fontSize: '20px', fontWeight: 900 }}>&gt;</div>
+                    <div style={{ display: 'flex', alignItems: 'center', color: '#ff3b30', fontSize: '28px', fontWeight: 800, margin: '0 4px' }}>&gt;</div>
 
                     {/* expansion Group */}
                     <div style={{
@@ -155,7 +157,7 @@ const PersonaAnalysisSlide: React.FC = () => {
                             margin: '-20px auto 0 auto',
                             border: '1.5px solid #34c75940'
                         }}>
-                            EXPAND
+                            <span style={{ opacity: 0.7, marginRight: '4px' }}>03</span> EXPAND
                         </div>
                         <PersonaCard
                             type="C"
@@ -176,7 +178,7 @@ const PersonaAnalysisSlide: React.FC = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '16px',
-                    margin: '4px 0 12px 0',
+                    marginTop: '36px',
                     border: '1px solid #ffeeba',
                     fontSize: '15px',
                     boxShadow: '0 4px 12px rgba(133, 100, 4, 0.05)'
@@ -191,8 +193,8 @@ const PersonaAnalysisSlide: React.FC = () => {
                         </p>
                     </div>
                 </div>
+            </div>
 
-                <InsightBanner />
 
                 <div className="slide-footer">
                     <p className="caption-text">기반: 핵심 이해관계자 페르소나 매핑 및 요구사항 분석 (2025)</p>

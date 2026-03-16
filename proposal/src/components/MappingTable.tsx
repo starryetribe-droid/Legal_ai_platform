@@ -9,69 +9,159 @@ const MappingTable: React.FC = () => {
         { id: 'C', persona: '상담사', keyword: '"법률적으로 도와줄 수 없어 답답해요"', pain: '법률·절차 안내 공백 · 반복 질문 한계', feature: '상담 보조 리포트 · 출처 명확 법률 정보', color: '#34c759' },
     ];
 
+    const groupedData = [
+        { title: '01 PRIMARY', color: '#0066cc', items: [data[0], data[1]] },
+        { title: '02 SECONDARY', color: '#ff3b30', items: [data[2], data[3]] },
+        { title: '03 EXPAND', color: '#34c759', items: [data[4]] },
+    ];
+
     return (
         <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '24px',
-            marginTop: '12px'
+            display: 'flex',
+            gap: '40px',
+            alignItems: 'stretch'
         }}>
-            {data.map((item, idx) => (
-                <div key={idx} className="apple-card" style={{
-                    padding: '0',
+            {groupedData.map((group, gIdx) => (
+                <div key={gIdx} style={{
+                    flex: group.items.length,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: '100%',
-                    border: '1px solid rgba(0,0,0,0.05)',
-                    borderRadius: '18px',
-                    overflow: 'hidden'
+                    padding: '32px',
+                    borderRadius: '24px',
+                    border: `1.5px dashed ${group.color}40`,
+                    backgroundColor: `${group.color}03`,
+                    position: 'relative'
                 }}>
-                    <div style={{ padding: '24px 24px 12px 24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
-                            <span style={{
-                                backgroundColor: item.color,
-                                color: 'white',
-                                padding: '3px 8px',
-                                borderRadius: '4px',
-                                fontSize: '16px',
-                                fontWeight: 700
-                            }}>{item.id}</span>
-                            <h3 style={{ fontSize: '18px', fontWeight: 700 }}>{item.persona}</h3>
-                        </div>
-
-                        <div style={{
-                            padding: '12px 16px',
-                            backgroundColor: 'rgba(0,0,0,0.04)',
-                            borderRadius: '8px',
-                            border: 'none',
-                        }}>
-                            <div style={{
-                                fontSize: '16px',
-                                color: '#1d1d1f',
-                                fontStyle: 'italic',
-                                lineHeight: '1.5',
-                                whiteSpace: 'pre-line'
-                            }}>
-                                {item.keyword}
-                            </div>
-                        </div>
-
-                        <div style={{ marginBottom: '8px' }}>
-                            <p style={{ fontSize: '16px', color: 'var(--apple-secondary-text)', marginBottom: '4px', fontWeight: 600 }}>Challenge</p>
-                            <p style={{ fontSize: '16px', lineHeight: '1.5' }}>{item.pain}</p>
-                        </div>
+                    {/* Group Badge */}
+                    <div style={{
+                        position: 'absolute',
+                        top: '-12px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        fontSize: '12px',
+                        fontWeight: 800,
+                        color: group.color,
+                        textAlign: 'center',
+                        letterSpacing: '0.1em',
+                        backgroundColor: 'white',
+                        padding: '2px 12px',
+                        borderRadius: '10px',
+                        border: `1.5px solid ${group.color}40`,
+                        whiteSpace: 'nowrap'
+                    }}>
+                        {group.title}
                     </div>
 
                     <div style={{
-                        padding: '20px 24px',
-                        backgroundColor: `${item.color}10`,
-                        borderTop: `1px solid ${item.color}20`,
-                        borderRadius: '0 0 18px 18px'
+                        display: 'grid',
+                        gridTemplateColumns: `repeat(${group.items.length}, 1fr)`,
+                        gap: '24px',
+                        flex: 1
                     }}>
-                        <p style={{ fontSize: '16px', color: item.color, marginBottom: '4px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                            <span style={{ fontSize: '18px' }}>✨</span> Solution
-                        </p>
-                        <p style={{ fontSize: '16px', fontWeight: 600, color: '#1d1d1f', lineHeight: '1.5' }}>{item.feature}</p>
+                        {group.items.map((item, idx) => (
+                            <div key={idx} style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                height: '100%',
+                                alignItems: 'center',
+                                gap: '36px'
+                            }}>
+                                {/* Problem Box */}
+                                <div className="apple-card" style={{
+                                    width: '100%',
+                                    padding: '24px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '12px',
+                                    flex: 1,
+                                    backgroundColor: '#ffffff',
+                                }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                        <div style={{
+                                            width: '38px',
+                                            height: '38px',
+                                            borderRadius: '50%',
+                                            backgroundColor: `${item.color}20`,
+                                            color: item.color,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontWeight: 800,
+                                            fontSize: '20px'
+                                        }}>
+                                            {item.id}
+                                        </div>
+                                        <div style={{ fontSize: '19px', fontWeight: 800, color: '#1d1d1f' }}>
+                                            {item.persona}
+                                        </div>
+                                    </div>
+
+                                    <div style={{
+                                        fontStyle: 'italic',
+                                        fontSize: '14px',
+                                        padding: '12px',
+                                        backgroundColor: 'rgba(0,0,0,0.03)',
+                                        borderRadius: '8px',
+                                        lineHeight: '1.4',
+                                        color: '#333',
+                                        minHeight: '88px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        whiteSpace: 'pre-line'
+                                    }}>
+                                        {item.keyword}
+                                    </div>
+
+                                    <div style={{ marginTop: '12px', borderLeft: `3px solid ${item.color}`, paddingLeft: '12px' }}>
+                                        <div style={{ fontSize: '15px', fontWeight: 800, marginBottom: '6px', color: item.color, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Challenge</div>
+                                        <p style={{ fontSize: '14px', lineHeight: '1.3', color: '#333' }}>{item.pain}</p>
+                                    </div>
+                                </div>
+
+                                {/* Downward Arrow */}
+                                <div style={{
+                                    fontSize: '22px',
+                                    fontWeight: 800,
+                                    color: 'var(--apple-secondary-text)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    height: '24px'
+                                }}>
+                                    ↓
+                                </div>
+
+                                {/* Solution Area */}
+                                <div style={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: '110px',
+                                }}>
+                                    <div style={{ fontSize: '15px', fontWeight: 700, marginBottom: '6px', color: item.color, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'center' }}>
+                                        Solution
+                                    </div>
+                                    <div style={{
+                                        fontSize: '16px',
+                                        padding: '8px 10px',
+                                        borderRadius: '8px',
+                                        backgroundColor: `${item.color}15`,
+                                        color: item.color,
+                                        fontWeight: 800,
+                                        textAlign: 'center',
+                                        flex: 1,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        wordBreak: 'keep-all',
+                                        lineHeight: '1.4',
+                                        boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+                                    }}>
+                                        {item.feature}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             ))}

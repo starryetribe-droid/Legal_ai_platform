@@ -20,23 +20,23 @@ const ProductPositioningSlide: React.FC = () => {
                     Product Positioning
                 </div>
 
-                <h1 className="hero-title" style={{ fontSize: '32px', marginBottom: '4px' }}>
+                <h1 className="hero-title" style={{ fontSize: '32px', marginBottom: '12px' }}>
                     일반 LLM과 다른 이유, 사례관리자 방식의 AI 법률 플랫폼
                 </h1>
-                <p style={{ fontSize: '18px', color: 'var(--apple-secondary-text)', marginBottom: '20px', fontWeight: 500 }}>
-                    ChatGPT·Gemini 등 범용 LLM과의 핵심 차별점 6가지 · 사회복지 사례관리 전문성 5대 역량 기반
-                </p>
+                <h2 style={{ fontSize: '18px', color: 'var(--apple-secondary-text)', fontWeight: 500, marginBottom: '20px' }}>
+                    — ChatGPT·Gemini 등 범용 LLM과의 핵심 차별점 6가지 · 사회복지 사례관리 전문성 5대 역량 기반
+                </h2>
 
                 <div style={{ display: 'flex', gap: '20px', flex: 1, minHeight: 0 }}>
                     {/* Left Grid: 6 Points */}
-                    <div style={{ flex: 2.2, display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'repeat(3, 1fr)', gap: '16px' }}>
+                    <div style={{ flex: 2.2, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                         {/* 01 */}
-                        <div className="glass-card" style={{ padding: '16px', borderRadius: '20px', position: 'relative', border: '1px solid #e5e5e7' }}>
+                        <div className="glass-card" style={{ padding: '20px', borderRadius: '20px', position: 'relative', border: '1px solid #e5e5e7', display: 'flex', flexDirection: 'column' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                <span style={{ background: '#1d1d1f', color: 'white', borderRadius: '6px', padding: '2px 8px', fontSize: '16px', fontWeight: 700 }}>01</span>
+                                <span style={{ background: '#1d1d1f', color: 'white', borderRadius: '6px', padding: '2px 8px', fontSize: '14px', fontWeight: 700 }}>01</span>
                                 <h3 style={{ fontSize: '18px', fontWeight: 700 }}>페르소나 기반 맥락 설계</h3>
                             </div>
-                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: 'var(--apple-secondary-text)', fontSize: '16px', lineHeight: '1.5' }}>
+                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: 'var(--apple-secondary-text)', fontSize: '14px', lineHeight: '1.6', flex: 1 }}>
                                 <li>피해자 부모 vs 가해자 부모: 대상별 커스텀 플로우 및 톤앤매너 안내</li>
                                 <li>동일 사건이라도 사용자 입장에 따른 정보 우선순위 차등 제공</li>
                             </ul>
@@ -46,31 +46,33 @@ const ProductPositioningSlide: React.FC = () => {
                         </div>
 
                         {/* 02 - Dark Card */}
-                        <div style={{ background: '#1d1d1f', color: 'white', padding: '16px', borderRadius: '20px', position: 'relative' }}>
+                        <div style={{ background: '#1d1d1f', color: 'white', padding: '20px', borderRadius: '20px', position: 'relative', display: 'flex', flexDirection: 'column' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                <span style={{ background: 'white', color: '#1d1d1f', borderRadius: '6px', padding: '2px 8px', fontSize: '16px', fontWeight: 700 }}>02</span>
+                                <span style={{ background: 'white', color: '#1d1d1f', borderRadius: '6px', padding: '2px 8px', fontSize: '14px', fontWeight: 700 }}>02</span>
                                 <h3 style={{ fontSize: '18px', fontWeight: 700 }}>사례관리자처럼 가이드하는 챗봇</h3>
                             </div>
-                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: '#8e8e93', fontSize: '16px', lineHeight: '1.5' }}>
+                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: '#8e8e93', fontSize: '14px', lineHeight: '1.6', flex: 1 }}>
                                 <li>상황 파악을 위한 능동적 질문과 단계별 가이드 제시</li>
                                 <li>사용자의 질문 유도 없이도 챗봇이 전체 케이스를 리딩</li>
                             </ul>
                             <div style={{ background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '12px', marginBottom: '12px' }}>
-                                <p style={{ fontSize: '16px', fontStyle: 'italic', color: '#d2d2d7' }}>"지금 학폭위 통보를 받으셨나요? 그럼 오늘 해야 할 일이 있어요."</p>
+                                <p style={{ fontSize: '14px', fontStyle: 'italic', color: '#d2d2d7' }}>"지금 학폭위 통보를 받으셨나요? 그럼 오늘 해야 할 일이 있어요."</p>
                             </div>
-                            <Tag label="→ 의사소통" color="#0066cc" textColor="white" />
+                            <div style={{ display: 'flex', gap: '6px' }}>
+                                <Tag label="→ 의사소통" color="#0066cc" textColor="white" />
+                            </div>
                         </div>
 
                         {/* 03 */}
-                        <div className="glass-card" style={{ padding: '16px', borderRadius: '20px', border: '1px solid #e5e5e7' }}>
+                        <div className="glass-card" style={{ padding: '20px', borderRadius: '20px', border: '1px solid #e5e5e7', display: 'flex', flexDirection: 'column' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                <span style={{ background: '#1d1d1f', color: 'white', borderRadius: '6px', padding: '2px 8px', fontSize: '16px', fontWeight: 700 }}>03</span>
+                                <span style={{ background: '#1d1d1f', color: 'white', borderRadius: '6px', padding: '2px 8px', fontSize: '14px', fontWeight: 700 }}>03</span>
                                 <h3 style={{ fontSize: '18px', fontWeight: 700 }}>진단 → 행동 가이드</h3>
                             </div>
-                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: 'var(--apple-secondary-text)', fontSize: '16px', lineHeight: '1.5' }}>
+                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: 'var(--apple-secondary-text)', fontSize: '14px', lineHeight: '1.6', flex: 1 }}>
                                 <li>단순 정보 나열 형태 탈피: 즉각적인 행동 지침(Action Plan) 제공</li>
                                 <li>체크리스트와 타임라인 기반의 개인형 맞춤 출력물
-                                    <ul style={{ margin: '4px 0 0 20px', padding: 0, fontSize: '16px', color: 'var(--apple-secondary-text)', listStyleType: 'circle' }}>
+                                    <ul style={{ margin: '4px 0 0 20px', padding: 0, fontSize: '14px', color: 'var(--apple-secondary-text)', listStyleType: 'circle' }}>
                                         <li>증거 수집 체크리스트</li>
                                         <li>D-21 타임라인 자동 생성</li>
                                         <li>오늘 할 일 우선순위 안내</li>
@@ -84,18 +86,18 @@ const ProductPositioningSlide: React.FC = () => {
                         </div>
 
                         {/* 04 */}
-                        <div className="glass-card" style={{ padding: '16px', borderRadius: '20px', border: '1px solid #e5e5e7' }}>
+                        <div className="glass-card" style={{ padding: '20px', borderRadius: '20px', border: '1px solid #e5e5e7', display: 'flex', flexDirection: 'column' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                <span style={{ background: '#1d1d1f', color: 'white', borderRadius: '6px', padding: '2px 8px', fontSize: '16px', fontWeight: 700 }}>04</span>
+                                <span style={{ background: '#1d1d1f', color: 'white', borderRadius: '6px', padding: '2px 8px', fontSize: '14px', fontWeight: 700 }}>04</span>
                                 <h3 style={{ fontSize: '18px', fontWeight: 700 }}>증거·문서 관리 기능</h3>
                             </div>
-                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: 'var(--apple-secondary-text)', fontSize: '16px', lineHeight: '1.5' }}>
+                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: 'var(--apple-secondary-text)', fontSize: '14px', lineHeight: '1.6', flex: 1 }}>
                                 <li>LLM 기반 대화 수준을 넘어선 실무 중심의 케이스 관리 툴셋</li>
                                 <li>증거 보관함, 진술서 초안 생성, 타임라인 추적 자동화</li>
                             </ul>
                             <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
-                                <button style={{ flex: 1, background: '#f2f2f7', border: 'none', padding: '8px', borderRadius: '10px', fontSize: '16px', fontWeight: 600 }}>증거 보관함</button>
-                                <button style={{ flex: 1, background: '#f2f2f7', border: 'none', padding: '8px', borderRadius: '10px', fontSize: '16px', fontWeight: 600 }}>진술서 초안</button>
+                                <button style={{ flex: 1, background: '#f2f2f7', border: 'none', padding: '8px', borderRadius: '10px', fontSize: '14px', fontWeight: 600 }}>증거 보관함</button>
+                                <button style={{ flex: 1, background: '#f2f2f7', border: 'none', padding: '8px', borderRadius: '10px', fontSize: '14px', fontWeight: 600 }}>진술서 초안</button>
                             </div>
                             <div style={{ display: 'flex', gap: '6px' }}>
                                 <Tag label="→ 자원 연계" color="#34c759" textColor="white" />
@@ -104,34 +106,36 @@ const ProductPositioningSlide: React.FC = () => {
                         </div>
 
                         {/* 05 */}
-                        <div className="glass-card" style={{ padding: '16px', borderRadius: '20px', border: '1px solid #e5e5e7' }}>
+                        <div className="glass-card" style={{ padding: '20px', borderRadius: '20px', border: '1px solid #e5e5e7', display: 'flex', flexDirection: 'column' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                <span style={{ background: '#1d1d1f', color: 'white', borderRadius: '6px', padding: '2px 8px', fontSize: '16px', fontWeight: 700 }}>05</span>
+                                <span style={{ background: '#1d1d1f', color: 'white', borderRadius: '6px', padding: '2px 8px', fontSize: '14px', fontWeight: 700 }}>05</span>
                                 <h3 style={{ fontSize: '18px', fontWeight: 700 }}>법적 책임 범위 설계</h3>
                             </div>
-                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: 'var(--apple-secondary-text)', fontSize: '16px', lineHeight: '1.5' }}>
+                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: 'var(--apple-secondary-text)', fontSize: '14px', lineHeight: '1.6', flex: 1 }}>
                                 <li>변호사 직접 검토를 거친 신뢰도 높은 법률 콘텐츠 제공</li>
                                 <li>전문가 연결 CTA를 활용한 신뢰 확보와 명확한 수익 모델 구축</li>
                             </ul>
-                            <div style={{ background: '#f5f5f7', padding: '10px', borderRadius: '12px', fontSize: '14px', fontWeight: 600, color: '#1d1d1f', textAlign: 'center', marginBottom: '10px' }}>
+                            <div style={{ background: '#f2f2f7', padding: '6px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: 500, color: '#1d1d1f', width: 'fit-content', marginBottom: '12px' }}>
                                 신뢰 확보 → 전문가 연결 → 수익화
                             </div>
-                            <Tag label="→ 윤리적 판단" color="#ff3b30" textColor="white" />
+                            <div style={{ display: 'flex' }}>
+                                <Tag label="→ 윤리적 판단" color="#ff3b30" textColor="white" />
+                            </div>
                         </div>
 
                         {/* 06 */}
-                        <div className="glass-card" style={{ padding: '16px', borderRadius: '20px', border: '1px solid #e5e5e7' }}>
+                        <div className="glass-card" style={{ padding: '20px', borderRadius: '20px', border: '1px solid #e5e5e7', display: 'flex', flexDirection: 'column' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                <span style={{ background: '#1d1d1f', color: 'white', borderRadius: '6px', padding: '2px 8px', fontSize: '16px', fontWeight: 700 }}>06</span>
+                                <span style={{ background: '#1d1d1f', color: 'white', borderRadius: '6px', padding: '2px 8px', fontSize: '14px', fontWeight: 700 }}>06</span>
                                 <h3 style={{ fontSize: '18px', fontWeight: 700 }}>심리 상태 반영 설계</h3>
                             </div>
-                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: 'var(--apple-secondary-text)', fontSize: '16px', lineHeight: '1.5' }}>
+                            <ul style={{ margin: '0 0 12px 18px', padding: 0, color: 'var(--apple-secondary-text)', fontSize: '14px', lineHeight: '1.6', flex: 1 }}>
                                 <li>심리적 위기 상태(혼란/공포)에 처한 사용자의 심리 분석 반영</li>
                                 <li>정보 전달 전 사용자 정서 공감과 확인 욕구 우선 충족 구조</li>
                             </ul>
                             <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
-                                <button style={{ background: '#f2f2f7', border: 'none', padding: '6px 12px', borderRadius: '8px', fontSize: '16px', fontWeight: 500 }}>공감 먼저</button>
-                                <button style={{ background: '#f2f2f7', border: 'none', padding: '6px 12px', borderRadius: '8px', fontSize: '16px', fontWeight: 500 }}>정보 나중</button>
+                                <button style={{ background: '#f2f2f7', border: 'none', padding: '6px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: 500 }}>공감 먼저</button>
+                                <button style={{ background: '#f2f2f7', border: 'none', padding: '6px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: 500 }}>정보 나중</button>
                             </div>
                             <div style={{ display: 'flex', gap: '6px' }}>
                                 <Tag label="→ 의사소통" color="#0066cc" textColor="white" />
@@ -152,13 +156,13 @@ const ProductPositioningSlide: React.FC = () => {
                         border: '1px solid #f2f2f7'
                     }}>
                         {/* Panel Header */}
-                        <div style={{ background: '#1d1d1f', padding: '16px 20px', color: 'white' }}>
-                            <p style={{ fontSize: '16px', color: '#8e8e93', fontWeight: 600, letterSpacing: '0.05em', marginBottom: '2px' }}>REFERENCE · 표 8-1</p>
-                            <h3 style={{ fontSize: '18px', fontWeight: 700 }}>사례관리자 전문성 5대 역량</h3>
+                        <div style={{ background: '#2c2c2e', padding: '16px 20px', color: 'white' }}>
+                            <p style={{ fontSize: '16px', color: '#8e8e93', fontWeight: 600, letterSpacing: '0.05em', marginBottom: '2px' }}>AI 설계 기반 5대 역량</p>
+                            <h3 style={{ fontSize: '18px', fontWeight: 800 }}>사례관리자 전문성</h3>
                         </div>
 
                         {/* List of Competencies */}
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                             <CompetencyItem
                                 title="의사소통"
                                 badge="신뢰 형성 · 공감"
@@ -202,10 +206,6 @@ const ProductPositioningSlide: React.FC = () => {
                             />
                         </div>
 
-                        {/* Panel Footer */}
-                        <div style={{ marginTop: 'auto', padding: '12px 20px', background: '#f9f9fb', fontSize: '12px', color: '#8e8e93' }}>
-                            출처: [표 8-1] 사례관리자의 전문성
-                        </div>
                     </div>
                 </div>
 
@@ -240,10 +240,10 @@ const Tag: React.FC<{ label: string; color?: string; textColor?: string }> = ({ 
     <span style={{
         backgroundColor: color,
         color: textColor,
-        padding: '2px 8px',
-        borderRadius: '6px',
-        fontSize: '14px',
-        fontWeight: 600,
+        padding: '4px 10px',
+        borderRadius: '8px',
+        fontSize: '13px',
+        fontWeight: 700,
         whiteSpace: 'nowrap'
     }}>
         {label}
@@ -262,28 +262,33 @@ const CompetencyItem: React.FC<{
     <div style={{
         padding: '16px 20px',
         backgroundColor: bgColor,
-        borderBottom: isLast ? 'none' : '1px solid #f2f2f7'
+        borderBottom: isLast ? 'none' : '1px solid #f2f2f7',
+        borderLeft: `3px solid ${color}`,
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
     }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-            <h4 style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f' }}>{title}</h4>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '5px' }}>
+            <h4 style={{ fontSize: '16px', fontWeight: 800, color: '#1d1d1f' }}>{title}</h4>
             <span style={{
                 backgroundColor: color + '15',
                 color: color,
                 padding: '2px 10px',
                 borderRadius: '12px',
-                fontSize: '16px',
+                fontSize: '14px',
                 fontWeight: 700
             }}>{badge}</span>
         </div>
-        <p style={{ fontSize: '16px', color: '#48484a', lineHeight: '1.5', marginBottom: '10px' }}>{description}</p>
+        <p style={{ fontSize: '14px', color: '#48484a', lineHeight: '1.6', marginBottom: '7px' }}>{description}</p>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             {links.map((link, idx) => (
                 <span key={idx} style={{
                     backgroundColor: link.highlight ? '#1d1d1f' : color + '15',
                     color: link.highlight ? 'white' : color,
-                    padding: '2px 8px',
+                    padding: '4px 10px',
                     borderRadius: '8px',
-                    fontSize: '14px',
+                    fontSize: '13px',
                     fontWeight: 700
                 }}>{link.text}</span>
             ))}

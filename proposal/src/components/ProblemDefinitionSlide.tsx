@@ -6,7 +6,7 @@ const ProblemDefinitionSlide: React.FC = () => {
             <div className="slide-container">
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     {/* Header Section */}
-                    <div style={{ marginBottom: '40px' }}>
+                    <div style={{ marginBottom: '50px' }}>
                         {/* Top Badge - Dark Mode Version */}
                         <div style={{
                             backgroundColor: 'white',
@@ -14,27 +14,27 @@ const ProblemDefinitionSlide: React.FC = () => {
                             padding: '4px 12px',
                             borderRadius: '20px',
                             fontSize: '16px',
-                            fontWeight: 600,
+                            fontWeight: 700,
                             textTransform: 'uppercase',
                             width: 'fit-content',
-                            marginBottom: '16px',
+                            marginBottom: '18px',
                             letterSpacing: '0.05em'
                         }}>
                             Problem Definition
                         </div>
 
                         <h1 className="hero-title" style={{
-                            fontSize: '36px',
-                            lineHeight: '1.2',
+                            fontSize: '32px',
+                            lineHeight: '1.3',
                             marginBottom: '12px',
                             color: 'white'
                         }}>
                             피해자는 <span style={{ color: '#ff6b35', backgroundColor: 'rgba(255,107,53,0.15)', padding: '0 8px', borderRadius: '4px' }}>'확신이 없거나 일이 커질까봐'</span> 멈추고,<br />
                             가해자는 <span style={{ color: '#00a6ff', backgroundColor: 'rgba(0,166,255,0.15)', padding: '0 8px', borderRadius: '4px' }}>'가해 인식이 없거나 일이 터지고 나서야'</span> 움직인다.
                         </h1>
-                        <p style={{ fontSize: '20px', color: '#a1a1a6', fontWeight: 500 }}>
-                            피해자는 '이게 폭력인지'조차 확신할 수 없거나, 부모님이 걱정하실까봐 멈추고 가해자는 문제가 생기기 전엔 찾아볼 이유가 없다.
-                        </p>
+                        <h2 style={{ fontSize: '18px', color: '#a1a1a6', fontWeight: 500, marginBottom: '0' }}>
+                            — 피해자는 '이게 폭력인지'조차 확신할 수 없거나, 부모님이 걱정하실까봐 멈추고 가해자는 문제가 생기기 전엔 찾아볼 이유가 없다.
+                        </h2>
                     </div>
 
                     {/* Content Grid */}
@@ -69,7 +69,7 @@ const ProblemDefinitionSlide: React.FC = () => {
 
                             <p style={{ color: '#ff6b35', fontSize: '18px', fontWeight: 700, marginBottom: '24px' }}>피해자 측</p>
 
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', flex: 1, justifyContent: 'space-between' }}>
                                 <div>
                                     <h2 style={{ fontSize: '72px', fontWeight: 800, marginBottom: '8px', color: '#ff6b35', letterSpacing: '-0.02em' }}>
                                         61% <span style={{ fontSize: '24px', fontWeight: 600, color: '#a1a1a6' }}>이상</span>
@@ -82,10 +82,15 @@ const ProblemDefinitionSlide: React.FC = () => {
                                 </div>
 
                                 <div style={{
+                                    marginTop: 'auto',
                                     padding: '24px',
                                     backgroundColor: 'rgba(255,107,53,0.08)',
                                     borderRadius: '14px',
-                                    border: '1px solid rgba(255,107,53,0.2)'
+                                    border: '1px solid rgba(255,107,53,0.2)',
+                                    minHeight: '180px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center'
                                 }}>
                                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px', marginBottom: '8px' }}>
                                         <span style={{ fontSize: '16px', color: '#ff6b35', fontWeight: 700 }}>신고율</span>
@@ -127,7 +132,7 @@ const ProblemDefinitionSlide: React.FC = () => {
 
                             <p style={{ color: '#00a6ff', fontSize: '18px', fontWeight: 700, marginBottom: '24px' }}>가해자 측</p>
 
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', flex: 1, justifyContent: 'space-between' }}>
                                 <div>
                                     <h2 style={{ fontSize: '72px', fontWeight: 800, marginBottom: '8px', color: '#00a6ff', letterSpacing: '-0.02em' }}>
                                         장난이었다. 이유 없다.
@@ -139,10 +144,15 @@ const ProblemDefinitionSlide: React.FC = () => {
                                 </div>
 
                                 <div style={{
+                                    marginTop: 'auto',
                                     padding: '24px',
                                     backgroundColor: 'rgba(0,166,255,0.08)',
                                     borderRadius: '14px',
-                                    border: '1px solid rgba(0,166,255,0.2)'
+                                    border: '1px solid rgba(0,166,255,0.2)',
+                                    minHeight: '180px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center'
                                 }}>
                                     <p style={{ fontSize: '20px', color: '#ffffff', lineHeight: '1.6', fontWeight: 600 }}>
                                         "폭력에 대한 교육적 성찰보다<br />

@@ -6,6 +6,7 @@ import PersonaDemandMappingSlide from './components/PersonaDemandMappingSlide';
 import SolutionSlide from './components/SolutionSlide';
 import ProductPositioningSlide from './components/ProductPositioningSlide';
 import ServiceFlowSlide from './components/ServiceFlowSlide';
+import ServiceExpansionSlide from './components/ServiceExpansionSlide';
 
 const slides = [
   MarketOverviewSlide,
@@ -14,7 +15,8 @@ const slides = [
   ProblemDefinitionSlide,
   SolutionSlide,
   ProductPositioningSlide,
-  ServiceFlowSlide
+  ServiceFlowSlide,
+  ServiceExpansionSlide
 ];
 
 const App: React.FC = () => {
