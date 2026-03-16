@@ -41,10 +41,10 @@ const DataMoatSlide: React.FC = () => {
                                     <th style={{ padding: '20px 24px', color: '#86868b', fontSize: '16px', fontWeight: 600 }}>공개 판례 검색</th>
                                     <th style={{ 
                                         padding: '20px 24px', 
-                                        color: '#34c759', 
+                                        color: '#2A72E6', 
                                         fontSize: '16px', 
                                         fontWeight: 700,
-                                        backgroundColor: '#f2faf4'
+                                        backgroundColor: '#f0f6ff'
                                     }}>사례 기반 RAG (우리)</th>
                                 </tr>
                             </thead>
@@ -53,7 +53,7 @@ const DataMoatSlide: React.FC = () => {
                                     <td style={{ padding: '20px 24px', fontWeight: 600, color: '#424245' }}>답변 근거</td>
                                     <td style={{ padding: '20px 24px', color: '#86868b' }}>학습 데이터 패턴</td>
                                     <td style={{ padding: '20px 24px', color: '#86868b' }}>판결문 텍스트 매칭</td>
-                                    <td style={{ padding: '20px 24px', fontWeight: 600, backgroundColor: '#f2faf4' }}>수임 전 과정 + 판례 DB</td>
+                                    <td style={{ padding: '20px 24px', fontWeight: 600, backgroundColor: '#f0f6ff' }}>수임 전 과정 + 판례 DB</td>
                                 </tr>
                                 <tr style={{ borderBottom: '1px solid #f5f5f7' }}>
                                     <td style={{ padding: '20px 24px', fontWeight: 600, color: '#424245' }}>환각 위험</td>
@@ -62,8 +62,8 @@ const DataMoatSlide: React.FC = () => {
                                         <span style={{ color: '#86868b', marginLeft: '6px' }}>가짜 판례 생성</span>
                                     </td>
                                     <td style={{ padding: '20px 24px', color: '#86868b' }}>낮음, 단 문맥 오독 있음</td>
-                                    <td style={{ padding: '20px 24px', fontWeight: 600, backgroundColor: '#f2faf4' }}>
-                                        <span style={{ color: '#34c759' }}>극히 낮음</span>
+                                    <td style={{ padding: '20px 24px', fontWeight: 600, backgroundColor: '#f0f6ff' }}>
+                                        <span style={{ color: '#2A72E6' }}>극히 낮음</span>
                                         <span style={{ color: '#424245', marginLeft: '6px' }}>실존 사례만</span>
                                     </td>
                                 </tr>
@@ -71,19 +71,19 @@ const DataMoatSlide: React.FC = () => {
                                     <td style={{ padding: '20px 24px', fontWeight: 600, color: '#424245' }}>수임 전 데이터</td>
                                     <td style={{ padding: '20px 24px', color: '#86868b' }}>없음</td>
                                     <td style={{ padding: '20px 24px', color: '#86868b' }}>없음 (판결문만)</td>
-                                    <td style={{ padding: '20px 24px', fontWeight: 600, backgroundColor: '#f2faf4' }}>초기 상담 · 증거 · 합의 조건</td>
+                                    <td style={{ padding: '20px 24px', fontWeight: 600, backgroundColor: '#f0f6ff' }}>초기 상담 · 증거 · 합의 조건</td>
                                 </tr>
                                 <tr style={{ borderBottom: '1px solid #f5f5f7' }}>
                                     <td style={{ padding: '20px 24px', fontWeight: 600, color: '#424245' }}>페르소나 맥락</td>
                                     <td style={{ padding: '20px 24px', color: '#86868b' }}>없음</td>
                                     <td style={{ padding: '20px 24px', color: '#86868b' }}>없음</td>
-                                    <td style={{ padding: '20px 24px', fontWeight: 600, backgroundColor: '#f2faf4' }}>피해자 · 가해자 완전 분리</td>
+                                    <td style={{ padding: '20px 24px', fontWeight: 600, backgroundColor: '#f0f6ff' }}>피해자 · 가해자 완전 분리</td>
                                 </tr>
                                 <tr>
                                     <td style={{ padding: '20px 24px', fontWeight: 600, color: '#424245' }}>최신성</td>
                                     <td style={{ padding: '20px 24px', color: '#86868b' }}>학습 시점까지</td>
                                     <td style={{ padding: '20px 24px', color: '#86868b' }}>업데이트 주기에 의존</td>
-                                    <td style={{ padding: '20px 24px', fontWeight: 600, backgroundColor: '#f2faf4' }}>새 판례 즉시 반영</td>
+                                    <td style={{ padding: '20px 24px', fontWeight: 600, backgroundColor: '#f0f6ff' }}>새 판례 즉시 반영</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -141,10 +141,10 @@ const DataMoatSlide: React.FC = () => {
                         </div>
                         <div className="apple-card" style={{ 
                             padding: '20px', 
-                            border: '2px solid #34c759',
+                            border: '2px solid #2A72E6',
                             backgroundColor: '#fff'
                         }}>
-                            <div style={{ color: '#34c759', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>사례 기반 RAG AI</div>
+                            <div style={{ color: '#2A72E6', fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>사례 기반 RAG AI</div>
                             <div style={{ fontSize: '19px', fontWeight: 700, wordBreak: 'keep-all' }}>
                                 케이스를 처음부터 끝까지 관리하는 플랫폼
                             </div>

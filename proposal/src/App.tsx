@@ -16,9 +16,9 @@ const slides = [
   ProblemDefinitionSlide,
   SolutionSlide,
   ProductPositioningSlide,
+  DataMoatSlide,
   ServiceFlowSlide,
-  ServiceExpansionSlide,
-  DataMoatSlide
+  ServiceExpansionSlide
 ];
 
 const App: React.FC = () => {
