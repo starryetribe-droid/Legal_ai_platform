@@ -68,7 +68,6 @@ h4 {
   /* Space between slides */
   padding: 60px 0;
   /* Space at top and bottom */
-  scroll-snap-type: y mandatory;
 }
 
 .slide-section {
@@ -83,8 +82,6 @@ h4 {
   /* 중앙 정렬 */
   background-color: var(--apple-bg);
   /* Add white background so it stands out */
-  scroll-snap-align: center;
-  /* Snap when scrolling */
 }
 
 .slide-container {
