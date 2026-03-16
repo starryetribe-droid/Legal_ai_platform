@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Investor Demo",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build": "vite build && cd proposal && npm install && npm run build && cd .. && mkdir -p dist/proposal && cp -r proposal/dist/* dist/proposal/"
   },
   "devDependencies": {
     "vite": "^5.0.0"
