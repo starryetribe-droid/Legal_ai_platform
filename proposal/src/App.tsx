@@ -7,6 +7,7 @@ import SolutionSlide from './components/SolutionSlide';
 import ProductPositioningSlide from './components/ProductPositioningSlide';
 import ServiceFlowSlide from './components/ServiceFlowSlide';
 import ServiceExpansionSlide from './components/ServiceExpansionSlide';
+import DataMoatSlide from './components/DataMoatSlide';
 
 const slides = [
   MarketOverviewSlide,
@@ -16,7 +17,8 @@ const slides = [
   SolutionSlide,
   ProductPositioningSlide,
   ServiceFlowSlide,
-  ServiceExpansionSlide
+  ServiceExpansionSlide,
+  DataMoatSlide
 ];
 
 const App: React.FC = () => {
