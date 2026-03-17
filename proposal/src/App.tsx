@@ -8,8 +8,10 @@ import ProductPositioningSlide from './components/ProductPositioningSlide';
 import ServiceFlowSlide from './components/ServiceFlowSlide';
 import ServiceExpansionSlide from './components/ServiceExpansionSlide';
 import DataMoatSlide from './components/DataMoatSlide';
+import TAMSlide from './components/TAMSlide';
 
 const slides = [
+  TAMSlide,
   MarketOverviewSlide,
   PersonaAnalysisSlide,
   PersonaDemandMappingSlide,
